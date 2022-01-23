@@ -181,9 +181,9 @@
   
   
   <entry>
-    <title>Fundamentals of programming with C</title>
-    <link href="/2022/01/12/Fundamentals%20of%20programming%20with%20C/"/>
-    <url>/2022/01/12/Fundamentals%20of%20programming%20with%20C/</url>
+    <title>程序设计的基础</title>
+    <link href="/2022/01/12/fundamental_of_program/"/>
+    <url>/2022/01/12/fundamental_of_program/</url>
     
     <content type="html"><![CDATA[<h1 id="执行指令的计算机"><a class="markdownIt-Anchor" href="#执行指令的计算机"></a> 执行指令的计算机</h1><p>计算机</p>]]></content>
     
@@ -192,7 +192,7 @@
       
       <category>编程</category>
       
-      <category>C语言</category>
+      <category>Fundamentals of Programming with C</category>
       
     </categories>
     

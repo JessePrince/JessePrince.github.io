@@ -189,11 +189,11 @@
   </entry>
   
   <entry>
-    <title>Fundamentals of programming with C</title>
-    <link href="https://jesseprince.github.io/2022/01/12/Fundamentals%20of%20programming%20with%20C/"/>
-    <id>https://jesseprince.github.io/2022/01/12/Fundamentals%20of%20programming%20with%20C/</id>
+    <title>程序设计的基础</title>
+    <link href="https://jesseprince.github.io/2022/01/12/fundamental_of_program/"/>
+    <id>https://jesseprince.github.io/2022/01/12/fundamental_of_program/</id>
     <published>2022-01-12T12:44:12.996Z</published>
-    <updated>2022-01-14T06:42:44.043Z</updated>
+    <updated>2022-01-23T04:04:14.784Z</updated>
     
     <content type="html"><![CDATA[<h1 id="执行指令的计算机"><a class="markdownIt-Anchor" href="#执行指令的计算机"></a> 执行指令的计算机</h1><p>计算机</p>]]></content>
     
@@ -209,7 +209,7 @@
     
     <category term="编程" scheme="https://jesseprince.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
     
-    <category term="C语言" scheme="https://jesseprince.github.io/categories/%E7%BC%96%E7%A8%8B/C%E8%AF%AD%E8%A8%80/"/>
+    <category term="Fundamentals of Programming with C" scheme="https://jesseprince.github.io/categories/%E7%BC%96%E7%A8%8B/Fundamentals-of-Programming-with-C/"/>
     
     
     <category term="程序语言" scheme="https://jesseprince.github.io/tags/%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80/"/>
