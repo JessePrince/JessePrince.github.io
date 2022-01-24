@@ -6,7 +6,7 @@
   <link href="https://jesseprince.github.io/atom.xml" rel="self"/>
   
   <link href="https://jesseprince.github.io/"/>
-  <updated>2022-01-22T14:05:23.503Z</updated>
+  <updated>2022-01-24T09:44:49.527Z</updated>
   <id>https://jesseprince.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>摔倒检测手环开发日志</title>
+    <link href="https://jesseprince.github.io/2022/01/24/develop_log_fall/"/>
+    <id>https://jesseprince.github.io/2022/01/24/develop_log_fall/</id>
+    <published>2022-01-24T09:29:17.677Z</published>
+    <updated>2022-01-24T09:44:49.527Z</updated>
+    
+    <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <script id="hbeData" type="hbeData" data-hmacdigest="611a74f5f340e80761f7262b1e5d495d8256be8c94e903eb817bbef091e581ce">7c7799d07fbfba5398b837cadec3abec07b93b36bbe835ec821fe17682c2f4cf7a525170c9233dec615b3bbf3d85fce22f087cd2997b6c1d8cb1a367d71afeff0dfe0f8b75aee24690212793f89efe0fc3de304667ea37dd9f05ed060ecbc9a33909990bce6a32b0dbbdf87b7938125c2dbb2a1f9879a1458a0ce8ca3d4e09b037cad5ec6677bd0b9320c2e879d5de5144e5d20fef085feb81c9f36149df813c451adc9e7e45aacb75501d15e161786cedb4f2bd9f262774b5bccae04a3068698727e933daa68c2ed15fa2ffcce94b2e289f5282f5c2251027f930963f4687a3f5b2fe0c3d8dc49a80cac4912e52ecf8ec119efeb020d3e95674c09a8480ec5fad5304c74aa5d5bfefdd9c497bfb9dee56eb821fe14d7bb2855a4c0ce0ee2c70163fa2e669550f7fbccd21c4f4d80ad0e43cd785e92b58ec2049483f36fe62104a65ba7829191ef626a7ce78381e7f25394e29c3e40b652f942a2367f067099223d724e852ca7c5077e3d52c81ac95033b94f4c325897e646136a71ed9a54e95cc34c1579115e8e2177afd6dfe5768f1c880f0b39576c6e19cfad4b09da34e166a3f80fd2b19ccc87d32b2a077816518f507704db619634c9795f39d025b0da4490a9c1d4449195b3c44cb1736fab71c8d7a49bac75c57848b6416d324189dce2f452ef3094cb5db7b30f004bf367f9dfaf47d8e0eee460cbb33e54733b88e9d8355a11a093e47f73191f7b1030098523a3d7b63de72038be1c24c5648b9182ba358b966402c18ff20b4db67c13264a25c3912520a69b41d0c0749e48d0e6b61f1bd64375e6fa1a556117f290ec538d8cc4e3fd5ee54167a94039e88a19e41f0ff53fdd255e14491ee555cb0196a589bdad61ca656f2f240c6533087e8c4215c45e5755023d8156a9a3ed02f4daddce6e1ddf6ac37a5e41731dcf1e164940edbea5b16de03d426c273c3a1c65af9d8a1bcc61284d748a3dbb42d8db3b61b36fa0f5e39b346e58eee71b0875f6dcac3e3e53ae4fbd59db40f54f08dbebaa1d013cd64858608ef20c640c09fedd981c20090ef80ed838281a3c74088552b7b3e0c594b820b08dcd62966e31aefbb140239975f6a161d09bfa1d92a4abff99f8203fbafd50447a3ccaec673fd56f3a7afca8053c8625e013da173148aa4b7e3e966a2825f7654d459b174d50a018c8a9f955b517019db96b9a26f24b8c12c0d37716aba727d9bd5e08c2b067db7cd268b82045aa67f6d39a09ecd4f64b0c5a5f82b07dd3b0f5be9333273f02de0348c17efb7474520c1405430e765a9251bd5dcca9301ba2caee386046291808191595c0a19a32439c230caed33157debcc9d16e03b3d85f4ee0346cc67b5bbc869280f5744b53b6719cda4e89d780667ba0235ca0f78e1248f4d0b29139b7d3765bdb66b4ad5f86a9d8632f6a5c981295da53b17bf8e8b33f328622ab582d69ef669ffda05b3bd5d1055fb52dd863826864c1aaa2525610c94eb97305c6799e0a904add804aaf37c022124ed4d57d8cd0f19bd005ee223fa69f61c7f7965826198d49451b7b56eb38ee3d926fe36ffc6e56ba4257e4ea37db210ff0898b410bcf001d09e1a8cdaff7fa339178ad1d034be5c413cd464be8dfbf74b2686080ea8bf254a2cd1751834dd14be96fe6bbd5d9fb07affb65f76e5e3e725f93e3bd108ed607208715a79d738d9aa7f6e9a4fd5f9ebbd6c7b730c58fb5b19f6d4e6b3c331c2fea4a546b52ea501d960e5a6e9ba06a1daccd496dd4fddadca9fba7cb77508eb6961</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-default">      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, please click and insert password</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+    
+    
+    <summary type="html">Encrypted</summary>
+    
+    
+    
+    <category term="项目" scheme="https://jesseprince.github.io/categories/%E9%A1%B9%E7%9B%AE/"/>
+    
+    <category term="摔倒检测手环" scheme="https://jesseprince.github.io/categories/%E9%A1%B9%E7%9B%AE/%E6%91%94%E5%80%92%E6%A3%80%E6%B5%8B%E6%89%8B%E7%8E%AF/"/>
+    
+    
+    <category term="项目" scheme="https://jesseprince.github.io/tags/%E9%A1%B9%E7%9B%AE/"/>
+    
+    <category term="摔倒检测手环" scheme="https://jesseprince.github.io/tags/%E6%91%94%E5%80%92%E6%A3%80%E6%B5%8B%E6%89%8B%E7%8E%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>about</title>
