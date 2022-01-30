@@ -1,0 +1,629 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="林正">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1 What is Arduino Arduino是一个庞大的概念，它是一大堆电子硬件的集合。 前导课程  电学 编程能力   2 Installation  Official：www.arduino.cc Download Arduino IDE Install with driver   3 Interface  文件-首选项-编辑器语言 项目文件夹位置：存储项目程序的位置 勾选显示行号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arduino Tutorial(以Arduino Uno为例)">
+<meta property="og:url" content="https://jesseprince.github.io/2022/01/30/Ardu_intro/index.html">
+<meta property="og:site_name" content="林正的Blog">
+<meta property="og:description" content="1 What is Arduino Arduino是一个庞大的概念，它是一大堆电子硬件的集合。 前导课程  电学 编程能力   2 Installation  Official：www.arduino.cc Download Arduino IDE Install with driver   3 Interface  文件-首选项-编辑器语言 项目文件夹位置：存储项目程序的位置 勾选显示行号">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-30T11:17:50.477Z">
+<meta property="article:modified_time" content="2022-01-30T13:21:49.729Z">
+<meta property="article:author" content="林正">
+<meta property="article:tag" content="单片机编程">
+<meta property="article:tag" content="嵌入式开发">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Arduino Tutorial(以Arduino Uno为例) - 林正的Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"jesseprince.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="林正的Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>林正的Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Arduino Tutorial(以Arduino Uno为例)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-30 19:17" pubdate>
+        2022年1月30日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Arduino Tutorial(以Arduino Uno为例)</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年1月30日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="1-what-is-arduino"><a class="markdownIt-Anchor" href="#1-what-is-arduino"></a> 1 What is Arduino</h1>
+<p>Arduino是一个庞大的概念，它是一大堆电子硬件的集合。<br />
+前导课程</p>
+<ol>
+<li>电学</li>
+<li>编程能力</li>
+</ol>
+<h1 id="2-installation"><a class="markdownIt-Anchor" href="#2-installation"></a> 2 Installation</h1>
+<ol>
+<li>Official：<a target="_blank" rel="noopener" href="http://www.arduino.cc">www.arduino.cc</a></li>
+<li>Download Arduino IDE</li>
+<li>Install with driver</li>
+</ol>
+<h1 id="3-interface"><a class="markdownIt-Anchor" href="#3-interface"></a> 3 Interface</h1>
+<ol>
+<li>文件-首选项-编辑器语言</li>
+<li>项目文件夹位置：存储项目程序的位置</li>
+<li>勾选显示行号</li>
+</ol>
+<h2 id="31-选择正确的板子和端口"><a class="markdownIt-Anchor" href="#31-选择正确的板子和端口"></a> 3.1 选择正确的板子和端口</h2>
+<ol>
+<li>工具-开发板</li>
+<li>工具-端口</li>
+</ol>
+<h2 id="32-保存改名字"><a class="markdownIt-Anchor" href="#32-保存改名字"></a> 3.2 保存改名字</h2>
+<p>文件-保存-改名字-选择位置</p>
+<blockquote>
+<p>文件名尽量使用英文名+下划线形式</p>
+</blockquote>
+<p>编辑代码之后代码卡上会有符号提示，经常ctrl+s保存是好习惯。</p>
+<h2 id="33-快捷功能按钮"><a class="markdownIt-Anchor" href="#33-快捷功能按钮"></a> 3.3 快捷功能按钮</h2>
+<p>（从左往右）<br />
+<strong>验证</strong>：检查程序是否有错误，同时编译程序代码。<br />
+<strong>上传</strong>：上传编译后的固件到开发板。<br />
+<strong>新建</strong>：新建代码。<br />
+<strong>打开</strong>：打开以前的程序。<br />
+<strong>保存</strong>：保存程序。</p>
+<h2 id="34-状态栏"><a class="markdownIt-Anchor" href="#34-状态栏"></a> 3.4 状态栏</h2>
+<p>显示目前Arduino IDE的动作。</p>
+<h2 id="35-console"><a class="markdownIt-Anchor" href="#35-console"></a> 3.5 Console</h2>
+<p>显示控制台输出，编译状况等等。</p>
+<h1 id="4-开发板基本介绍"><a class="markdownIt-Anchor" href="#4-开发板基本介绍"></a> 4 开发板基本介绍</h1>
+<h2 id="41-数字输入输出端口"><a class="markdownIt-Anchor" href="#41-数字输入输出端口"></a> 4.1 数字输入输出端口</h2>
+<p>数字信号，二进制输入，输出。<br />
+<strong>端口0</strong>：Rx<br />
+<strong>端口1</strong>：Tx</p>
+<h2 id="42-模拟输入"><a class="markdownIt-Anchor" href="#42-模拟输入"></a> 4.2 模拟输入</h2>
+<p>模拟信号，输入。</p>
+<h2 id="43-电源"><a class="markdownIt-Anchor" href="#43-电源"></a> 4.3 电源</h2>
+<p><strong>接地</strong>：GND<br />
+<strong>5v</strong>：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mrow><mi>c</mi><mi>c</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{cc}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight">c</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mi>v</mi></mrow><annotation encoding="application/x-tex">5v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span><br />
+<strong>3.3v</strong>：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mrow><mi>c</mi><mi>c</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{cc}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight">c</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> in <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3.3</mn><mi>v</mi></mrow><annotation encoding="application/x-tex">3.3v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">.</span><span class="mord">3</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span></p>
+<h1 id="5-基础程序"><a class="markdownIt-Anchor" href="#5-基础程序"></a> 5 基础程序</h1>
+<p>Arduino的编程语言基于C++</p>
+<h2 id="51-变量"><a class="markdownIt-Anchor" href="#51-变量"></a> 5.1 变量</h2>
+<p>Arduino支持的变量类型</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> a; <span class="hljs-comment">//整型，范围：-32768-32767 </span><br><span class="hljs-keyword">char</span> a; <span class="hljs-comment">//字符型，范围：-128-127</span><br>byte a; <span class="hljs-comment">//就是无符号整型，范围0~255</span><br><span class="hljs-keyword">bool</span> a; <span class="hljs-comment">//布尔型，0和1取值</span><br><span class="hljs-keyword">double</span> a; <span class="hljs-comment">//双精度浮点，范围：-3.4028235E+38-3.4028235E+38</span><br><span class="hljs-keyword">long</span> a = <span class="hljs-number">29596725L</span>;; <span class="hljs-comment">//长整型，范围：-2147483648-2147483647</span><br></code></pre></td></tr></table></figure>
+<h2 id="52-程序结构"><a class="markdownIt-Anchor" href="#52-程序结构"></a> 5.2 程序结构</h2>
+<h3 id="53-void-setup"><a class="markdownIt-Anchor" href="#53-void-setup"></a> 5.3 void setup()</h3>
+<p>这个函数是按下复位键之后只执行一次的，在这里写初始化硬件的代码。</p>
+<h3 id="54-void-loop"><a class="markdownIt-Anchor" href="#54-void-loop"></a> 5.4 void loop()</h3>
+<p>这个函数会自动的反复执行，不需要写<code>while(1)</code>。可以直接在里面写主任务代码。</p>
+<h2 id="53-常量"><a class="markdownIt-Anchor" href="#53-常量"></a> 5.3 常量</h2>
+<h3 id="531-high"><a class="markdownIt-Anchor" href="#531-high"></a> 5.3.1 HIGH</h3>
+<p>当引脚是输入状态，且输入电压大于等于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mi>v</mi></mrow><annotation encoding="application/x-tex">3v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>时会返回HIGH，当引脚是输出状态时，设置输出为HIGH时引脚会输出<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mi>v</mi></mrow><annotation encoding="application/x-tex">5v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>电压。</p>
+<h3 id="532-low"><a class="markdownIt-Anchor" href="#532-low"></a> 5.3.2 LOW</h3>
+<p>当引脚时输入状态，且输入电压小于等于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>v</mi></mrow><annotation encoding="application/x-tex">2v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>时返回LOW，当引脚时输出状态时，设置输出为HIGH引脚输出<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mi>v</mi></mrow><annotation encoding="application/x-tex">0v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>.</p>
+<h3 id="533-input"><a class="markdownIt-Anchor" href="#533-input"></a> 5.3.3 INPUT</h3>
+<p>当引脚设置为输入（INPUT）模式时，引脚为高阻抗状态（100兆欧）。此时该引脚可用于读取传感器信号或开关信号。</p>
+<p><strong>对于INPUT_PULLDOWN</strong>：设置下拉电阻，开关打开时Arduino引脚2输入信号为LOW（低电平），当开关关闭时Arduino引脚2输入信号为HIGH（高电平）。</p>
+<p><strong>对于INPUT_PULLUP</strong>：设置上拉电阻，开关打开时Arduino引脚2输入信号为HIGH（高电平），当开关关闭时Arduino引脚2输入信号为LOW（低电平）</p>
+<h3 id="534-output"><a class="markdownIt-Anchor" href="#534-output"></a> 5.3.4 OUTPUT</h3>
+<p>当引脚设置为输出（OUTPUT）模式时，引脚为低阻抗状态。这意味着Arduino可以向其它电路元器件提供电流。也就是说，Arduino引脚在输出（OUTPUT）模式下可以点亮LED或者驱动电机。</p>
+<h2 id="54-数据类型转换"><a class="markdownIt-Anchor" href="#54-数据类型转换"></a> 5.4 数据类型转换</h2>
+<p>可以使用<br />
+<code>Dtype()</code>的形式来转换一个数据的类型。Dtype是要转换成的数据类型，括号内输入要转换的数据。</p>
+<h1 id="6-库函数"><a class="markdownIt-Anchor" href="#6-库函数"></a> 6 库函数</h1>
+<h2 id="61-基本库函数"><a class="markdownIt-Anchor" href="#61-基本库函数"></a> 6.1 基本库函数</h2>
+<h3 id="611-pinmode"><a class="markdownIt-Anchor" href="#611-pinmode"></a> 6.1.1 pinMode()</h3>
+<p>这个函数用来设置某个引脚的使用模式</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">pinMode</span>(Pin_number, Mode)<br></code></pre></td></tr></table></figure>
+<p>其中型参<code>Mode</code>有</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INPUT_PULLUP</td>
+<td>输入模式，上拉电阻输入</td>
+</tr>
+<tr>
+<td>INPUT_PULLDOWN</td>
+<td>输入模式，下拉电阻输入</td>
+</tr>
+<tr>
+<td>OUTPUT</td>
+<td>输出模式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="612-digitalwrite"><a class="markdownIt-Anchor" href="#612-digitalwrite"></a> 6.1.2 digitalWrite()</h3>
+<p>将数字引脚写HIGH（高电平）或LOW（低电平）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">digitalWrite</span>(Pin_number, Value)<br></code></pre></td></tr></table></figure>
+<p>其中型参<code>Value</code>有</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HIGH</td>
+<td>写高电平</td>
+</tr>
+<tr>
+<td>LOW</td>
+<td>写低电平</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: 如果该引脚通过pinMode()设置为输入模式（INPUT），当您通过digitalWrite()语句将该引脚设置为HIGH时，<br />
+这与将该引脚将被设置为输入上拉(INPUT_PULLUP)模式相同。</p>
+</blockquote>
+<h3 id="613-digitalread"><a class="markdownIt-Anchor" href="#613-digitalread"></a> 6.1.3 digitalRead()</h3>
+<p>读取数字引脚的 HIGH(高电平）或 LOW（低电平）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">digitalRead</span>(Pin_number)<br></code></pre></td></tr></table></figure>
+<p>函数会返回读到的值，高电平(HIGH)或者低电平(LOW)。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/Arduino%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Arduino学习笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA%E7%BC%96%E7%A8%8B/">单片机编程</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/">嵌入式开发</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！, 联系QQ邮箱：1025638694@qq.com
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/24/develop_log_fall/">
+                        <span class="hidden-mobile">摔倒检测手环开发日志</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css" />
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script>(function (w, d, s, id) {
+            if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window, document, 'script', 'webpushr-jssdk'));webpushr('setup', { 'key': 'BMbTx1ZJelWq3roP3GYnfCDQdvu4yiHno_QBdQaV8otW_Gag0xTRGJUHBpbfDkyq3LD9yOS_CwXnaIkg7E1ijgo' });</script></body>
+</html>
