@@ -24,7 +24,7 @@
 <meta property="og:description" content="1 What is Arduino Arduino是一个庞大的概念，它是一大堆电子硬件的集合。 前导课程  电学 编程能力   2 Installation  Official：www.arduino.cc Download Arduino IDE Install with driver   3 Interface  文件-首选项-编辑器语言 项目文件夹位置：存储项目程序的位置 勾选显示行号">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-30T11:17:50.477Z">
-<meta property="article:modified_time" content="2022-01-30T13:21:49.729Z">
+<meta property="article:modified_time" content="2022-01-31T07:29:04.428Z">
 <meta property="article:author" content="林正">
 <meta property="article:tag" content="单片机编程">
 <meta property="article:tag" content="嵌入式开发">
@@ -199,7 +199,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      3.7k 字
     </span>
   
 
@@ -208,7 +208,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16 分钟
+      32 分钟
     </span>
   
 
@@ -249,7 +249,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年1月30日 晚上
+                  本文最后更新于：2022年1月31日 下午
                 
               </p>
             
@@ -388,6 +388,119 @@
 <p>读取数字引脚的 HIGH(高电平）或 LOW（低电平）。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">digitalRead</span>(Pin_number)<br></code></pre></td></tr></table></figure>
 <p>函数会返回读到的值，高电平(HIGH)或者低电平(LOW)。</p>
+<h3 id="614-analogread"><a class="markdownIt-Anchor" href="#614-analogread"></a> 6.1.4 analogRead()</h3>
+<p>此函数会将读到的模拟输入数值直接DAC到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>−</mo><mn>1023</mn></mrow><annotation encoding="application/x-tex">0-1023</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">2</span><span class="mord">3</span></span></span></span>，相当于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>10</mn><mi>b</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">10bit</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span></span></span></span>的精度。Arduino控制器读取一次模拟输入需要消耗<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>100</mn><mi>μ</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">100\mu s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault">μ</span><span class="mord mathdefault">s</span></span></span></span>的时间（0.0001秒）。控制器读取模拟输入的最大频率是每秒<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>10</mn><mo separator="true">,</mo><mn>000</mn></mrow><annotation encoding="application/x-tex">10,000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span>次。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">analogRead</span>(Pin_number)<br></code></pre></td></tr></table></figure>
+<p>函数会返回<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>−</mo><mn>1023</mn></mrow><annotation encoding="application/x-tex">0-1023</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">2</span><span class="mord">3</span></span></span></span>之间的一个数值。</p>
+<h3 id="615-analogwrite"><a class="markdownIt-Anchor" href="#615-analogwrite"></a> 6.1.5 analogWrite()</h3>
+<p>这个函数实际上是让引脚给出PWM波，在调用这个函数前，不需要用<code>pinMode()</code>来设置引脚使用模式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">analogWrite</span>(Pin_number, Value)<br></code></pre></td></tr></table></figure>
+<p>其中型参<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">Value</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">u</span><span class="mord mathdefault">e</span></span></span></span>是给一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>−</mo><mn>255</mn></mrow><annotation encoding="application/x-tex">0-255</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">5</span></span></span></span>之间的PWM频率值</p>
+<h3 id="616-tone"><a class="markdownIt-Anchor" href="#616-tone"></a> 6.1.6 tone()</h3>
+<p>这个函数可以产生固定频率的PWM波来驱动扬声器发声。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">tone</span>(Pin_number, freq, duration)<br></code></pre></td></tr></table></figure>
+<p>其中<code>duration</code>可以缺省。<code>freq</code>指定频率，是整型。<code>duration</code>是发声时长，单位为微秒。</p>
+<blockquote>
+<p><strong>Note</strong>:</p>
+<ol>
+<li>对于Arduino Mega以外的控制器，使用tone()函数时会影响引脚3和引脚11的PWM信号输出。</li>
+<li>如果你想要使用不同的引脚产生不同的声音音调，每一次更换发声引脚以前都要使用noTone函数停止上一个引脚发声。Arduino是不支持两个引脚同时发声的。</li>
+</ol>
+</blockquote>
+<h3 id="617-notone"><a class="markdownIt-Anchor" href="#617-notone"></a> 6.1.7 noTone()</h3>
+<p>此函数用来停止引脚发出PWM信号。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">noTone</span>(Pin_number)<br></code></pre></td></tr></table></figure>
+<h3 id="618-delay"><a class="markdownIt-Anchor" href="#618-delay"></a> 6.1.8 delay()</h3>
+<p>经典延时函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">delay</span>(ms)<br></code></pre></td></tr></table></figure>
+<p><code>ms</code>是以毫秒为单位的延时时间。</p>
+<h3 id="619-attachinterrupt"><a class="markdownIt-Anchor" href="#619-attachinterrupt"></a> 6.1.9 attachInterrupt()</h3>
+<p>这个函数用来配置Arduino的中断</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">attachInterrupt</span>(<span class="hljs-built_in">digitalPinToInterrupt</span>(pin), ISR, mode)<br></code></pre></td></tr></table></figure>
+<p>其中：<br />
+<code>pin</code>: 中断引脚号<br />
+<code>ISR</code>: 中断服务程序名<br />
+<code>mode</code>：中断模式</p>
+<p><code>mode</code>的取值有</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LOW</td>
+<td>引脚为低电平时中断</td>
+</tr>
+<tr>
+<td>CHANGE</td>
+<td>引脚电平变化时中断</td>
+</tr>
+<tr>
+<td>RISING</td>
+<td>上升沿中断</td>
+</tr>
+<tr>
+<td>FALLING</td>
+<td>下降沿中断</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>：<br />
+delayMicroseconds() 不需要任何计数器就可以运行，所以delayMicroseconds() 运行是不会受到影响的。</p>
+<p>一般情况下，ISR函数与主程序之间传递数据是依靠全局变量来实现的。为了确保全局变量在ISR函数中可以正常的工作，应该将可能被ISR函数中使用的全局变量声明为volatile类型。</p>
+<p>中断服务程序不能返回任何数值。所以应尽量在中断服务程序中使用全局变量。</p>
+</blockquote>
+<h3 id="6110-detachinterrupt"><a class="markdownIt-Anchor" href="#6110-detachinterrupt"></a> 6.1.10 detachInterrupt()</h3>
+<p>该函数用于取消中断</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">detachInterrupt</span>(<span class="hljs-built_in">digitalPinToInterrupt</span>(pin))<br></code></pre></td></tr></table></figure>
+<p><code>pin</code>就是要取消中断的引脚。</p>
+<h2 id="62-串行通信库"><a class="markdownIt-Anchor" href="#62-串行通信库"></a> 6.2 串行通信库</h2>
+<p>单片机与电脑串口进行通信使用的一个库，这个库封装好了大部分的功能函数。</p>
+<p>Arduino IDE自带串口监视器，点击放大镜图标就可以打开监视。</p>
+<blockquote>
+<p>Serial库有函数<br />
+available<br />
+begin<br />
+end<br />
+find<br />
+findUntil<br />
+flush<br />
+peek<br />
+print<br />
+println<br />
+parseInt<br />
+parseFloat<br />
+read<br />
+readBytes<br />
+readBytesUntil<br />
+write<br />
+readString<br />
+readStringUntil</p>
+</blockquote>
+<p>接下来记录最常用的几个。</p>
+<h3 id="621-serialbegin"><a class="markdownIt-Anchor" href="#621-serialbegin"></a> 6.2.1 Serial.begin()</h3>
+<p>这个函数用来启动串口通信，需要给函数传入波特率</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">Serial.<span class="hljs-built_in">begin</span>(Baudrate)<br></code></pre></td></tr></table></figure>
+<p><code>Baudrate</code>即波特率，一般设置为9600.</p>
+<h3 id="622-serialavailable"><a class="markdownIt-Anchor" href="#622-serialavailable"></a> 6.2.2 Serial.available()</h3>
+<p>这个函数用来检查板子有没有收到数据，它会返回等待读取的数据字节数(int)。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">Serial.<span class="hljs-built_in">available</span>()<br></code></pre></td></tr></table></figure>
+<h3 id="623-serialprint"><a class="markdownIt-Anchor" href="#623-serialprint"></a> 6.2.3 Serial.print()</h3>
+<p>这个函数用来向串口发送字符串。函数会默认将输入的数字，字符全部转换为字符串格式发送。若遇到小数，它会自动保留两位小数发送。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">Serial.<span class="hljs-built_in">print</span>(val, format)<br></code></pre></td></tr></table></figure>
+<p><code>val</code>：发送的值<br />
+<code>format</code>：可缺省，如果是整数，指定以几进制发送。如果是小数，指定保留多少位小数。</p>
+<h3 id="624-serialprintln"><a class="markdownIt-Anchor" href="#624-serialprintln"></a> 6.2.4 Serial.println()</h3>
+<p>这个函数会和<code>Serial.print()</code>一样，但是它自带换行。</p>
+<h3 id="625-serialreadstring"><a class="markdownIt-Anchor" href="#625-serialreadstring"></a> 6.2.5 Serial.readString()</h3>
+<p>这个函数用来读取从串口过来的数据，读为字符串格式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">String serialData = Serial.<span class="hljs-built_in">readString</span>();  <br></code></pre></td></tr></table></figure>
+<p>返回值：字符串。</p>
+<h2 id="63-eeprom库"><a class="markdownIt-Anchor" href="#63-eeprom库"></a> 6.3 EEPROM库</h2>
 
             </div>
             <hr>
