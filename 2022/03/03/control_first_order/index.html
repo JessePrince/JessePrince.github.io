@@ -16,22 +16,24 @@
   <meta name="author" content="林正">
   <meta name="keywords" content="">
   
-    <meta name="description" content="信号流图与Mason公式  1 信号流图 除了使用方框图以外，还可以使用信号流图来表示整个系统。信号流图绘制更加简单，只有有向线段、圆圈和增益。方框图和信号流图可以互相转换  1.1 信号流图的元素  1.1.1 源节点  1.1.2 阱节点  1.1.3 混合节点  1.1.4 支路  1.1.5 支路增益  1.1.6 前向通路  1.1.7 回路  1.1.8 互不接触回路  2 Maso">
+    <meta name="description" content="系统性能的评判  1 一般系统的响应     一般来说，系统的响应是收敛的，发散的系统在自动控制里面没啥必要。随着时间的增加，它会向一个终值收敛。但是，观察上面的图，响应并不是一下子就到达了终值。会有一个上升的过程，超过终值的过程，在目标值上下震荡的过程，最后收敛到目标值误差5%以内的过程。 接下来，定义一些描述响应的重要的参数。  1.1 延迟时间 延迟时间用tdt_dtd​表示，它表示阶跃响">
 <meta property="og:type" content="article">
-<meta property="og:title" content="信号流图与Mason公式">
-<meta property="og:url" content="https://jesseprince.github.io/2022/03/02/control_flow_manson/index.html">
+<meta property="og:title" content="系统性能的评判">
+<meta property="og:url" content="https://jesseprince.github.io/2022/03/03/control_first_order/index.html">
 <meta property="og:site_name" content="林正的Blog">
-<meta property="og:description" content="信号流图与Mason公式  1 信号流图 除了使用方框图以外，还可以使用信号流图来表示整个系统。信号流图绘制更加简单，只有有向线段、圆圈和增益。方框图和信号流图可以互相转换  1.1 信号流图的元素  1.1.1 源节点  1.1.2 阱节点  1.1.3 混合节点  1.1.4 支路  1.1.5 支路增益  1.1.6 前向通路  1.1.7 回路  1.1.8 互不接触回路  2 Maso">
+<meta property="og:description" content="系统性能的评判  1 一般系统的响应     一般来说，系统的响应是收敛的，发散的系统在自动控制里面没啥必要。随着时间的增加，它会向一个终值收敛。但是，观察上面的图，响应并不是一下子就到达了终值。会有一个上升的过程，超过终值的过程，在目标值上下震荡的过程，最后收敛到目标值误差5%以内的过程。 接下来，定义一些描述响应的重要的参数。  1.1 延迟时间 延迟时间用tdt_dtd​表示，它表示阶跃响">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-02T14:00:02.165Z">
-<meta property="article:modified_time" content="2022-03-02T14:07:24.691Z">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6220a15d5baa1a80abc56f16.jpg">
+<meta property="article:published_time" content="2022-03-03T11:00:59.639Z">
+<meta property="article:modified_time" content="2022-03-03T11:19:40.172Z">
 <meta property="article:author" content="林正">
 <meta property="article:tag" content="控制系统">
 <meta property="article:tag" content="自动控制原理">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/6220a15d5baa1a80abc56f16.jpg">
   
   
-  <title>信号流图与Mason公式 - 林正的Blog</title>
+  <title>系统性能的评判 - 林正的Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -178,7 +180,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="信号流图与Mason公式">
+            <span class="h2" id="subtitle" title="系统性能的评判">
               
             </span>
 
@@ -188,8 +190,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-02 22:00" pubdate>
-        2022年3月2日 晚上
+      <time datetime="2022-03-03 19:00" pubdate>
+        2022年3月3日 晚上
       </time>
     </span>
   
@@ -199,7 +201,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      168 字
+      613 字
     </span>
   
 
@@ -208,7 +210,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2 分钟
+      6 分钟
     </span>
   
 
@@ -245,28 +247,36 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">信号流图与Mason公式</h1>
+            <h1 style="display: none">系统性能的评判</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年3月2日 晚上
+                  本文最后更新于：2022年3月3日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="信号流图与mason公式"><a class="markdownIt-Anchor" href="#信号流图与mason公式"></a> 信号流图与Mason公式</h1>
-<h2 id="1-信号流图"><a class="markdownIt-Anchor" href="#1-信号流图"></a> 1 信号流图</h2>
-<p>除了使用方框图以外，还可以使用信号流图来表示整个系统。信号流图绘制更加简单，只有有向线段、圆圈和增益。方框图和信号流图可以互相转换</p>
-<h3 id="11-信号流图的元素"><a class="markdownIt-Anchor" href="#11-信号流图的元素"></a> 1.1 信号流图的元素</h3>
-<h4 id="111-源节点"><a class="markdownIt-Anchor" href="#111-源节点"></a> 1.1.1 源节点</h4>
-<h4 id="112-阱节点"><a class="markdownIt-Anchor" href="#112-阱节点"></a> 1.1.2 阱节点</h4>
-<h4 id="113-混合节点"><a class="markdownIt-Anchor" href="#113-混合节点"></a> 1.1.3 混合节点</h4>
-<h4 id="114-支路"><a class="markdownIt-Anchor" href="#114-支路"></a> 1.1.4 支路</h4>
-<h4 id="115-支路增益"><a class="markdownIt-Anchor" href="#115-支路增益"></a> 1.1.5 支路增益</h4>
-<h4 id="116-前向通路"><a class="markdownIt-Anchor" href="#116-前向通路"></a> 1.1.6 前向通路</h4>
-<h4 id="117-回路"><a class="markdownIt-Anchor" href="#117-回路"></a> 1.1.7 回路</h4>
-<h4 id="118-互不接触回路"><a class="markdownIt-Anchor" href="#118-互不接触回路"></a> 1.1.8 互不接触回路</h4>
-<h2 id="2-mason公式"><a class="markdownIt-Anchor" href="#2-mason公式"></a> 2 Mason公式</h2>
+              <h1 id="系统性能的评判"><a class="markdownIt-Anchor" href="#系统性能的评判"></a> 系统性能的评判</h1>
+<h2 id="1-一般系统的响应"><a class="markdownIt-Anchor" href="#1-一般系统的响应"></a> 1 一般系统的响应</h2>
+<div align=center> 
+<img src="https://pic.imgdb.cn/item/6220a15d5baa1a80abc56f16.jpg" srcset="/img/loading.gif" lazyload, width="400"></img>
+<div align=left>
+<p>一般来说，系统的响应是收敛的，发散的系统在自动控制里面没啥必要。随着时间的增加，它会向一个终值收敛。但是，观察上面的图，响应并不是一下子就到达了终值。会有一个上升的过程，超过终值的过程，在目标值上下震荡的过程，最后收敛到目标值误差5%以内的过程。</p>
+<p>接下来，定义一些描述响应的重要的参数。</p>
+<h3 id="11-延迟时间"><a class="markdownIt-Anchor" href="#11-延迟时间"></a> 1.1 延迟时间</h3>
+<p>延迟时间用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>t</mi><mi>d</mi></msub></mrow><annotation encoding="application/x-tex">t_d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76508em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示，它表示<strong>阶跃响应第一次达到终值50%所需要的时间。</strong></p>
+<h3 id="12-上升时间"><a class="markdownIt-Anchor" href="#12-上升时间"></a> 1.2 上升时间</h3>
+<p>上升时间用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>t</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">t_r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76508em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示，它表示<strong>阶跃响应从终值的10%上升到终值%90所需的时间。有震荡时，课定义为0到第一次达到终值的时间。</strong></p>
+<h3 id="13-峰值时间"><a class="markdownIt-Anchor" href="#13-峰值时间"></a> 1.3 峰值时间</h3>
+<p>峰值时间用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>t</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">t_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9011879999999999em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示，它表示<strong>阶跃响应超过终值达到第一个峰值所需要的时间</strong></p>
+<h3 id="14-超调量"><a class="markdownIt-Anchor" href="#14-超调量"></a> 1.4 超调量</h3>
+<p>超调量用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">\sigma\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="mord">%</span></span></span></span>表示，它表示<strong>峰值超出终值的百分比</strong></p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>σ</mi><mi mathvariant="normal">%</mi><mo>=</mo><mfrac><mrow><mi>h</mi><mo stretchy="false">(</mo><msub><mi>t</mi><mi>p</mi></msub><mo stretchy="false">)</mo><mo>−</mo><mi>h</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∞</mi><mo stretchy="false">)</mo></mrow><mrow><mi>h</mi><mo stretchy="false">(</mo><mi mathvariant="normal">∞</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\sigma \%  = \frac{h(t_p)-h(\infty)}{h(\infty)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord">∞</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord">∞</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h3 id="14-调节时间"><a class="markdownIt-Anchor" href="#14-调节时间"></a> 1.4 调节时间</h3>
+<p>调节时间用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>t</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">t_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76508em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示，它表示<strong>阶跃响应达到并保持在终值5%误差带内所需的最短时间</strong>。</p>
+<h3 id="15-总结"><a class="markdownIt-Anchor" href="#15-总结"></a> 1.5 总结</h3>
+<p>这几个参数是描述系统响应的重要参数，有些时候需要超调量小一些，或者调节时间短一些。例如，对自动瞄准的火炮来说，如果瞄准的目标移动的很快，就需要一个更短的调节时间来让瞄准跟上目标的速度，这样才能达到系统的目的，或者说，拥有好的性能。</p>
 
             </div>
             <hr>
@@ -307,18 +317,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/03/control_first_order/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">系统性能的评判</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/02/control_typical_block/">
-                        <span class="hidden-mobile">典型的环节与系统方框图</span>
+                      <a href="/2022/03/02/control_flow_manson/">
+                        <span class="hidden-mobile">信号流图与Mason公式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
