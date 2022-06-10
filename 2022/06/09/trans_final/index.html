@@ -24,7 +24,7 @@
 <meta property="og:description" content="传输课程期末总结  Chapter 1 电信传输的基本概念 首先，应当注意的是本门课关注的重点是传输的媒介(Media)。在生活中，我们说道用来作为传输介质的，很容易想到电线，光纤等等，而本门课也主要分析这些媒介的传输性质。 本文中，带三角形的标题是重点。  1.1 什么是telecommunication tele被认为是在一定距离上进行通信，即信号通过一段长距离从一个地方无能量损失的，无形变">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-09T13:13:36.672Z">
-<meta property="article:modified_time" content="2022-06-10T07:12:17.714Z">
+<meta property="article:modified_time" content="2022-06-10T07:57:56.906Z">
 <meta property="article:author" content="林正">
 <meta property="article:tag" content="传输">
 <meta property="article:tag" content="通信工程">
@@ -199,7 +199,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7k 字
+      7.1k 字
     </span>
   
 
@@ -269,8 +269,9 @@
 <li>接收器 Receiver</li>
 <li>目的地 Destination</li>
 </ol>
-<div class="code-wrapper"><pre class="mermaid">graph LR
-1[Source] --> 2[Transmitter] --> 3[Transmission System] --> 4[Receiver] --> 5[Destination]</pre></div>
+<pre><code class=" mermaid">flowchart LR
+    A[Source] --&gt; B[Transmitter] --&gt; C[Transmission System] --&gt; D[Receiver] --&gt; E[Destination]
+</code></pre>
 <h3 id="13-通信系统的主要任务"><a class="markdownIt-Anchor" href="#13-通信系统的主要任务"></a> 1.3 通信系统的主要任务</h3>
 <p>通信系统的主要任务有一下几个</p>
 <ol>
@@ -551,8 +552,9 @@ UTP的全称是Unshielded Twisted Pair，即非屏蔽双绞线。这种线价格
 <p>详细的传输特性在第六章介绍。</p>
 <h3 id="2-无线通信"><a class="markdownIt-Anchor" href="#2-无线通信"></a> 2 无线通信</h3>
 <p>一般而言，一个无线传输模型如下图所示</p>
-<div class="code-wrapper"><pre class="mermaid">graph LR
-1[发送机天线] --> 2[信道] --> 3[接收机天线]</pre></div>
+<pre><code class=" mermaid">graph LR
+    1[发送机天线] --&gt; 2[信道] --&gt; 3[接收机天线]
+</code></pre>
 <p>所以，我们就有三个需要考虑的量</p>
 <ul>
 <li>发送机天线增益<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>G</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">G_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
