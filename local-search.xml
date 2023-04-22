@@ -4,6 +4,70 @@
   
   
   <entry>
+    <title>卷积与计算机视觉概述</title>
+    <link href="/2023/04/22/overview_conv/"/>
+    <url>/2023/04/22/overview_conv/</url>
+    
+    <content type="html"><![CDATA[<h1 id="序言"><a class="markdownIt-Anchor" href="#序言"></a> 序言</h1><p>计算机视觉，或者说基于深度学习的计算机视觉模型在最近获得了蓬勃的发展，论文数量不断创下新高，各种新方法，新结构层出不穷，而这一切，都来自于2012年某位叫做Alex的人在ImageNet大赛上展现出了卷积神经网络的无穷潜力。</p><p>卷积神经网络的故事从1989年开始，Yann LeCun创造了卷积网络并将它用到了识别手写数字上面，在这之后，改进卷积网络的方法不少也用到了改进其它神经网络上面，其中最著名的莫过于Kaiming He提出的残差连接，利用跳连解决了一个大问题(吹捧Kaiming大佬ing)，而后不论是各种卷积网络，还是纯MLP或Transformer类模型，残差连接都成为了不可缺少的一个组成部分。</p><p>本教程从最基本的卷积网络开始，一共分为三个部分编写</p><ol><li><strong>上游任务和骨干网</strong>：这一部分讲述各种Backbone(骨干网)的设计，主要集中在怎么改进一个最基本的卷积网络，这些网络都用在了图像分类上面，大多数是在ImageNet上比谁精度高。</li><li><strong>下游任务</strong>：包括目标检测，姿态估计，图像分割等等。</li><li><strong>前沿</strong>：这一部分是目前最新提出的各种网络架构，但这些架构还没有经过时间的检验，所以放在了“前沿”这一板块，当然，随着时间的推移，这里面的东西可能会移动到前面两个部分去。</li></ol><p>笔者假设读者已经具备了<strong>基本的深度学习知识</strong>，但缺少对比较前沿的神经网络的学习，可以通过这个教程认识各种被魔改的卷积网络。笔者也假设读者有一定的Python编程基础，熟悉PyTorch框架，计算图和自动微分机制。对于基础课，仅要求掌握工科三大数学，即高等数学，线性代数和概率论。</p><p>对于学习资源，每个深度学习的学习者都应该知道arXiv网站(<a href="http://www.arxiv.org">www.arxiv.org</a>)，这上面几乎有所有的关于深度学习论文的预印本可以免费下载，读者应该具备足够的英文能力去阅读这些文献。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>深度学习</category>
+      
+      <category>现代计算机视觉</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>智能系统</tag>
+      
+      <tag>深度学习</tag>
+      
+      <tag>计算机视觉</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>1 Yann LeCun和手写数字识别</title>
+    <link href="/2023/04/22/basic_of_conv/"/>
+    <url>/2023/04/22/basic_of_conv/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1-卷积操作的提出"><a class="markdownIt-Anchor" href="#1-卷积操作的提出"></a> 1 卷积操作的提出</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>深度学习</category>
+      
+      <category>现代计算机视觉</category>
+      
+      <category>上游与骨干网</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>智能系统</tag>
+      
+      <tag>深度学习</tag>
+      
+      <tag>计算机视觉</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Part Affinity Field</title>
     <link href="/2023/01/13/PAF_intro/"/>
     <url>/2023/01/13/PAF_intro/</url>
