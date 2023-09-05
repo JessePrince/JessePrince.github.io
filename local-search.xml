@@ -4,26 +4,58 @@
   
   
   <entry>
-    <title></title>
+    <title>02 水声信道</title>
     <link href="/2023/09/05/master/acousticnet/channel/"/>
     <url>/2023/09/05/master/acousticnet/channel/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h1 id="02-水声信道"><a class="markdownIt-Anchor" href="#02-水声信道"></a> 02 水声信道</h1><h2 id="1"><a class="markdownIt-Anchor" href="#1"></a> 1</h2>]]></content>
     
     
+    <categories>
+      
+      <category>信息与通信工程</category>
+      
+      <category>水声通信与网络</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>通信</tag>
+      
+      <tag>水声</tag>
+      
+    </tags>
     
   </entry>
   
   
   
   <entry>
-    <title></title>
+    <title>01 通信基本概念</title>
     <link href="/2023/09/05/master/acousticnet/basiicofcomm/"/>
     <url>/2023/09/05/master/acousticnet/basiicofcomm/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h1 id="01-通信基本概念"><a class="markdownIt-Anchor" href="#01-通信基本概念"></a> 01 通信基本概念</h1><h2 id="3-通信系统的性能指标"><a class="markdownIt-Anchor" href="#3-通信系统的性能指标"></a> 3 通信系统的性能指标</h2><p>主要分为有效性和可靠性。</p><h3 id="31-有效性"><a class="markdownIt-Anchor" href="#31-有效性"></a> 3.1 有效性</h3><ol><li>传码率</li><li>传信率</li><li>频带利用率</li></ol><h3 id="32-可靠性"><a class="markdownIt-Anchor" href="#32-可靠性"></a> 3.2 可靠性</h3><ol><li>误码率</li><li>误信率</li></ol>]]></content>
     
     
+    <categories>
+      
+      <category>信息与通信工程</category>
+      
+      <category>水声通信与网络</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>通信</tag>
+      
+      <tag>水声</tag>
+      
+    </tags>
     
   </entry>
   

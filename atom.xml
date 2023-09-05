@@ -6,7 +6,7 @@
   <link href="https://jesseprince.github.io/atom.xml" rel="self"/>
   
   <link href="https://jesseprince.github.io/"/>
-  <updated>2023-09-05T07:37:09.707Z</updated>
+  <updated>2023-09-05T07:39:36.970Z</updated>
   <id>https://jesseprince.github.io/</id>
   
   <author>
@@ -17,28 +17,60 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>02 水声信道</title>
     <link href="https://jesseprince.github.io/2023/09/05/master/acousticnet/channel/"/>
     <id>https://jesseprince.github.io/2023/09/05/master/acousticnet/channel/</id>
     <published>2023-09-05T07:37:09.707Z</published>
-    <updated>2023-09-05T07:37:09.707Z</updated>
+    <updated>2023-09-05T07:39:36.970Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="02-水声信道"><a class="markdownIt-Anchor" href="#02-水声信道"></a> 02 水声信道</h1><h2 id="1"><a class="markdownIt-Anchor" href="#1"></a> 1</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;02-水声信道&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#02-水声信道&quot;&gt;&lt;/a&gt; 02 水声信道&lt;/h1&gt;
+&lt;h2 id=&quot;1&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1&quot;&gt;&lt;/a&gt; 1&lt;/h2</summary>
+      
     
     
     
+    <category term="信息与通信工程" scheme="https://jesseprince.github.io/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/"/>
     
+    <category term="水声通信与网络" scheme="https://jesseprince.github.io/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E6%B0%B4%E5%A3%B0%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="通信" scheme="https://jesseprince.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
+    
+    <category term="水声" scheme="https://jesseprince.github.io/tags/%E6%B0%B4%E5%A3%B0/"/>
     
   </entry>
   
   <entry>
-    <title></title>
+    <title>01 通信基本概念</title>
     <link href="https://jesseprince.github.io/2023/09/05/master/acousticnet/basiicofcomm/"/>
     <id>https://jesseprince.github.io/2023/09/05/master/acousticnet/basiicofcomm/</id>
     <published>2023-09-05T07:23:55.797Z</published>
-    <updated>2023-09-05T07:23:55.797Z</updated>
+    <updated>2023-09-05T07:39:34.612Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="01-通信基本概念"><a class="markdownIt-Anchor" href="#01-通信基本概念"></a> 01 通信基本概念</h1><h2 id="3-通信系统的性能指标"><a class="markdownIt-Anchor" href="#3-通信系统的性能指标"></a> 3 通信系统的性能指标</h2><p>主要分为有效性和可靠性。</p><h3 id="31-有效性"><a class="markdownIt-Anchor" href="#31-有效性"></a> 3.1 有效性</h3><ol><li>传码率</li><li>传信率</li><li>频带利用率</li></ol><h3 id="32-可靠性"><a class="markdownIt-Anchor" href="#32-可靠性"></a> 3.2 可靠性</h3><ol><li>误码率</li><li>误信率</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;01-通信基本概念&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#01-通信基本概念&quot;&gt;&lt;/a&gt; 01 通信基本概念&lt;/h1&gt;
+&lt;h2 id=&quot;3-通信系统的性能指标&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href</summary>
+      
     
     
     
+    <category term="信息与通信工程" scheme="https://jesseprince.github.io/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/"/>
     
+    <category term="水声通信与网络" scheme="https://jesseprince.github.io/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E6%B0%B4%E5%A3%B0%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="通信" scheme="https://jesseprince.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
+    
+    <category term="水声" scheme="https://jesseprince.github.io/tags/%E6%B0%B4%E5%A3%B0/"/>
     
   </entry>
   
