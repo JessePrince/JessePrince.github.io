@@ -6,7 +6,7 @@
   <link href="https://jesseprince.github.io/atom.xml" rel="self"/>
   
   <link href="https://jesseprince.github.io/"/>
-  <updated>2023-09-04T11:38:50.195Z</updated>
+  <updated>2023-09-05T07:37:09.707Z</updated>
   <id>https://jesseprince.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://jesseprince.github.io/2023/09/05/master/acousticnet/channel/"/>
+    <id>https://jesseprince.github.io/2023/09/05/master/acousticnet/channel/</id>
+    <published>2023-09-05T07:37:09.707Z</published>
+    <updated>2023-09-05T07:37:09.707Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://jesseprince.github.io/2023/09/05/master/acousticnet/basiicofcomm/"/>
+    <id>https://jesseprince.github.io/2023/09/05/master/acousticnet/basiicofcomm/</id>
+    <published>2023-09-05T07:23:55.797Z</published>
+    <updated>2023-09-05T07:23:55.797Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>02-2：标准正交基与向量的正交化</title>
