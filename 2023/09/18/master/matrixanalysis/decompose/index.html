@@ -16,21 +16,41 @@
   <meta name="author" content="林正">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这个博客要是哪天登不上了是很正常的">
-<meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="https://jesseprince.github.io/archives/2023/index.html">
+    <meta name="description" content="05：矩阵分解  1 λ\lambdaλ-矩阵">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05：矩阵分解">
+<meta property="og:url" content="https://jesseprince.github.io/2023/09/18/master/matrixanalysis/decompose/index.html">
 <meta property="og:site_name" content="林正的Blog">
-<meta property="og:description" content="这个博客要是哪天登不上了是很正常的">
+<meta property="og:description" content="05：矩阵分解  1 λ\lambdaλ-矩阵">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-18T13:38:30.513Z">
+<meta property="article:modified_time" content="2023-09-18T15:10:22.942Z">
 <meta property="article:author" content="林正">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="矩阵论">
+<meta property="article:tag" content="矩阵分析">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>归档 - 林正的Blog</title>
+  <title>05：矩阵分解 - 林正的Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -58,7 +78,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -159,9 +179,51 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="05：矩阵分解">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-09-18 21:38" pubdate>
+        2023年9月18日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      20 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      1 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
 
             
           </div>
@@ -174,100 +236,102 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 25 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2023</p>
-    
-    <a href="/2023/09/18/master/matrixanalysis/decompose/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">05：矩阵分解</span>
-      <time style="float: right;">09-18</time>
-    </a>
-  
-    
-    <a href="/2023/09/17/master/matrixanalysis/specialmat/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">04：特殊矩阵</span>
-      <time style="float: right;">09-17</time>
-    </a>
-  
-    
-    <a href="/2023/09/14/master/signalestimate/chapter3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">03 信号的统计检测理论</span>
-      <time style="float: right;">09-14</time>
-    </a>
-  
-    
-    <a href="/2023/09/13/master/matrixanalysis/linearmap/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">03：线性映射与线性变换</span>
-      <time style="float: right;">09-13</time>
-    </a>
-  
-    
-    <a href="/2023/09/10/master/matrixanalysis/vecmatnorm/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">02-6：向量范数和矩阵范数的相容性</span>
-      <time style="float: right;">09-10</time>
-    </a>
-  
-    
-    <a href="/2023/09/10/master/matrixanalysis/matrixnorm/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">02-5：矩阵范数</span>
-      <time style="float: right;">09-10</time>
-    </a>
-  
-    
-    <a href="/2023/09/06/master/matrixanalysis/vecnorm/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">02-4：向量范数</span>
-      <time style="float: right;">09-06</time>
-    </a>
-  
-    
-    <a href="/2023/09/06/master/matrixanalysis/perpsubs/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">02-3：正交子空间</span>
-      <time style="float: right;">09-06</time>
-    </a>
-  
-    
-    <a href="/2023/09/05/master/acousticnet/spreadspec/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">03 扩频水声通信</span>
-      <time style="float: right;">09-05</time>
-    </a>
-  
-    
-    <a href="/2023/09/05/master/acousticnet/channel/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">02 水声信道</span>
-      <time style="float: right;">09-05</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">05：矩阵分解</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2023年9月18日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="05矩阵分解"><a class="markdownIt-Anchor" href="#05矩阵分解"></a> 05：矩阵分解</h1>
+<h2 id="1-lambda-矩阵"><a class="markdownIt-Anchor" href="#1-lambda-矩阵"></a> 1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">λ</span></span></span></span>-矩阵</h2>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2023/page/2/#board">2</a><a class="extend next" rel="next" href="/archives/2023/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/">信息与通信工程</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E7%9F%A9%E9%98%B5%E8%AE%BA/">矩阵论</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%9F%A9%E9%98%B5%E8%AE%BA/">矩阵论</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90/">矩阵分析</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！, 联系QQ邮箱：1025638694@qq.com
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/17/master/matrixanalysis/specialmat/">
+                        <span class="hidden-mobile">04：特殊矩阵</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -375,6 +439,19 @@
 
 
 
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
 
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
@@ -396,6 +473,13 @@
 
 
 
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css" />
+  
 
 
 
