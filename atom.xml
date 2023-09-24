@@ -602,7 +602,7 @@
     <link href="https://jesseprince.github.io/2022/12/28/public/webpushr-sw/"/>
     <id>https://jesseprince.github.io/2022/12/28/public/webpushr-sw/</id>
     <published>2022-12-28T07:33:05.942Z</published>
-    <updated>2022-12-28T07:33:06.194Z</updated>
+    <updated>2023-09-24T12:04:03.642Z</updated>
     
     <content type="html"><![CDATA[importScripts('https://cdn.webpushr.com/sw-server.min.js');]]></content>
     
