@@ -27,15 +27,21 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
   <title>分类 - 林正的Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
@@ -44,22 +50,43 @@
 
 <link  rel="stylesheet" href="/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
 
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"jesseprince.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jesseprince.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
 <meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="林正的Blog" type="application/atom+xml">
 </head>
 
 
 <body>
-  <header style="height: 60vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
       <strong>林正的Blog</strong>
@@ -82,7 +109,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -94,7 +121,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -106,7 +133,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -118,7 +145,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -130,7 +157,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
@@ -138,14 +165,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -153,29 +182,35 @@
   </div>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="分类">
-              
-            </span>
+  
 
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="分类"></span>
           
         </div>
+
+        
       </div>
+
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
+        <div id="board"
           >
           
           <div class="container">
@@ -190,24 +225,27 @@
 <div class="category-list">
   
   
-  
-  
     
     
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="信息与通信工程"
         id="heading-acb051b6d673a7ab7d901d59c522b25c" role="tab" data-toggle="collapse" href="#collapse-acb051b6d673a7ab7d901d59c522b25c"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         信息与通信工程
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>14</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-acb051b6d673a7ab7d901d59c522b25c" role="tabpanel" aria-labelledby="heading-acb051b6d673a7ab7d901d59c522b25c">
+      
+        <a href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>14</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-acb051b6d673a7ab7d901d59c522b25c"
+           role="tabpanel" aria-labelledby="heading-acb051b6d673a7ab7d901d59c522b25c">
         
         
           
@@ -219,23 +257,27 @@
 
           
   
-  
     
     
-    <div class="category-sub row">
-      <a
-        class="category-subitem collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="矩阵论"
         id="heading-253cf76136f0e6cbca3c75399272d5c4" role="tab" data-toggle="collapse" href="#collapse-253cf76136f0e6cbca3c75399272d5c4"
         aria-expanded="false"
       >
         矩阵论
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E7%9F%A9%E9%98%B5%E8%AE%BA/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>10</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-253cf76136f0e6cbca3c75399272d5c4" role="tabpanel" aria-labelledby="heading-253cf76136f0e6cbca3c75399272d5c4">
+      
+        <a href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E7%9F%A9%E9%98%B5%E8%AE%BA/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>10</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-253cf76136f0e6cbca3c75399272d5c4"
+           role="tabpanel" aria-labelledby="heading-253cf76136f0e6cbca3c75399272d5c4">
         
         
           
@@ -244,70 +286,90 @@
     
       
       
-        <a href="/2023/08/30/master/matrixanalysis/linearspace/" class="list-group-item list-group-item-action">
+        <a href="/2023/08/30/master/matrixanalysis/linearspace/" title="01：线性空间"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">01：线性空间</span>
         </a>
       
     
       
       
-        <a href="/2023/09/04/master/matrixanalysis/innerprod/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/04/master/matrixanalysis/innerprod/" title="02-1：内积空间"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">02-1：内积空间</span>
         </a>
       
     
       
       
-        <a href="/2023/09/04/master/matrixanalysis/othorgnal/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/04/master/matrixanalysis/othorgnal/" title="02-2：标准正交基与向量的正交化"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">02-2：标准正交基与向量的正交化</span>
         </a>
       
     
       
       
-        <a href="/2023/09/06/master/matrixanalysis/perpsubs/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/06/master/matrixanalysis/perpsubs/" title="02-3：正交子空间"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">02-3：正交子空间</span>
         </a>
       
     
       
       
-        <a href="/2023/09/06/master/matrixanalysis/vecnorm/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/06/master/matrixanalysis/vecnorm/" title="02-4：向量范数"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">02-4：向量范数</span>
         </a>
       
     
       
       
-        <a href="/2023/09/10/master/matrixanalysis/matrixnorm/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/10/master/matrixanalysis/matrixnorm/" title="02-5：矩阵范数"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">02-5：矩阵范数</span>
         </a>
       
     
       
       
-        <a href="/2023/09/10/master/matrixanalysis/vecmatnorm/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/10/master/matrixanalysis/vecmatnorm/" title="02-6：向量范数和矩阵范数的相容性"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">02-6：向量范数和矩阵范数的相容性</span>
         </a>
       
     
       
       
-        <a href="/2023/09/13/master/matrixanalysis/linearmap/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/13/master/matrixanalysis/linearmap/" title="03：线性映射与线性变换"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">03：线性映射与线性变换</span>
         </a>
       
     
       
       
-        <a href="/2023/09/17/master/matrixanalysis/specialmat/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/17/master/matrixanalysis/specialmat/" title="04：特殊矩阵"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">04：特殊矩阵</span>
         </a>
       
     
       
       
-        <a href="/2023/09/18/master/matrixanalysis/decompose/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/18/master/matrixanalysis/decompose/" title="05：矩阵分解"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">05：矩阵分解</span>
         </a>
       
@@ -320,20 +382,25 @@
   
     
     
-    <div class="category-sub row">
-      <a
-        class="category-subitem collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="水声通信与网络"
         id="heading-2e2c83ebe9d86bbf95808366af2d4389" role="tab" data-toggle="collapse" href="#collapse-2e2c83ebe9d86bbf95808366af2d4389"
         aria-expanded="false"
       >
         水声通信与网络
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E6%B0%B4%E5%A3%B0%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>3</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-2e2c83ebe9d86bbf95808366af2d4389" role="tabpanel" aria-labelledby="heading-2e2c83ebe9d86bbf95808366af2d4389">
+      
+        <a href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E6%B0%B4%E5%A3%B0%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%BD%91%E7%BB%9C/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>3</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-2e2c83ebe9d86bbf95808366af2d4389"
+           role="tabpanel" aria-labelledby="heading-2e2c83ebe9d86bbf95808366af2d4389">
         
         
           
@@ -342,21 +409,27 @@
     
       
       
-        <a href="/2023/09/05/master/acousticnet/basiicofcomm/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/05/master/acousticnet/basiicofcomm/" title="01 通信基本概念"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">01 通信基本概念</span>
         </a>
       
     
       
       
-        <a href="/2023/09/05/master/acousticnet/channel/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/05/master/acousticnet/channel/" title="02 水声信道"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">02 水声信道</span>
         </a>
       
     
       
       
-        <a href="/2023/09/05/master/acousticnet/spreadspec/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/05/master/acousticnet/spreadspec/" title="03 扩频水声通信"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">03 扩频水声通信</span>
         </a>
       
@@ -369,20 +442,25 @@
   
     
     
-    <div class="category-sub row">
-      <a
-        class="category-subitem collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="信号检测与估计"
         id="heading-c0acb3bad197f977c377c1154a31a5bf" role="tab" data-toggle="collapse" href="#collapse-c0acb3bad197f977c377c1154a31a5bf"
         aria-expanded="false"
       >
         信号检测与估计
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E5%8F%B7%E6%A3%80%E6%B5%8B%E4%B8%8E%E4%BC%B0%E8%AE%A1/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>1</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-c0acb3bad197f977c377c1154a31a5bf" role="tabpanel" aria-labelledby="heading-c0acb3bad197f977c377c1154a31a5bf">
+      
+        <a href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E5%8F%B7%E6%A3%80%E6%B5%8B%E4%B8%8E%E4%BC%B0%E8%AE%A1/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-c0acb3bad197f977c377c1154a31a5bf"
+           role="tabpanel" aria-labelledby="heading-c0acb3bad197f977c377c1154a31a5bf">
         
         
           
@@ -391,7 +469,9 @@
     
       
       
-        <a href="/2023/09/14/master/signalestimate/chapter3/" class="list-group-item list-group-item-action">
+        <a href="/2023/09/14/master/signalestimate/chapter3/" title="02 信号的统计检测理论"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">02 信号的统计检测理论</span>
         </a>
       
@@ -408,20 +488,25 @@
   
     
     
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="通信工程本科"
         id="heading-1eb003cd8e7a143e97baba4c51bfdd5c" role="tab" data-toggle="collapse" href="#collapse-1eb003cd8e7a143e97baba4c51bfdd5c"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         通信工程本科
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E6%9C%AC%E7%A7%91/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>2</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-1eb003cd8e7a143e97baba4c51bfdd5c" role="tabpanel" aria-labelledby="heading-1eb003cd8e7a143e97baba4c51bfdd5c">
+      
+        <a href="/categories/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E6%9C%AC%E7%A7%91/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-1eb003cd8e7a143e97baba4c51bfdd5c"
+           role="tabpanel" aria-labelledby="heading-1eb003cd8e7a143e97baba4c51bfdd5c">
         
         
           
@@ -433,23 +518,27 @@
 
           
   
-  
     
     
-    <div class="category-sub row">
-      <a
-        class="category-subitem collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="大四上"
         id="heading-b70ede3e170e9150cd54af9dae8a8e81" role="tab" data-toggle="collapse" href="#collapse-b70ede3e170e9150cd54af9dae8a8e81"
         aria-expanded="false"
       >
         大四上
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E6%9C%AC%E7%A7%91/%E5%A4%A7%E5%9B%9B%E4%B8%8A/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>2</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-b70ede3e170e9150cd54af9dae8a8e81" role="tabpanel" aria-labelledby="heading-b70ede3e170e9150cd54af9dae8a8e81">
+      
+        <a href="/categories/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E6%9C%AC%E7%A7%91/%E5%A4%A7%E5%9B%9B%E4%B8%8A/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-b70ede3e170e9150cd54af9dae8a8e81"
+           role="tabpanel" aria-labelledby="heading-b70ede3e170e9150cd54af9dae8a8e81">
         
         
           
@@ -461,23 +550,27 @@
 
           
   
-  
     
     
-    <div class="category-sub row">
-      <a
-        class="category-subitem collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="智能系统"
         id="heading-488cc7ebb57c61cabc600acc788dcfe5" role="tab" data-toggle="collapse" href="#collapse-488cc7ebb57c61cabc600acc788dcfe5"
         aria-expanded="false"
       >
         智能系统
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E6%9C%AC%E7%A7%91/%E5%A4%A7%E5%9B%9B%E4%B8%8A/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>2</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-488cc7ebb57c61cabc600acc788dcfe5" role="tabpanel" aria-labelledby="heading-488cc7ebb57c61cabc600acc788dcfe5">
+      
+        <a href="/categories/%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B%E6%9C%AC%E7%A7%91/%E5%A4%A7%E5%9B%9B%E4%B8%8A/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-488cc7ebb57c61cabc600acc788dcfe5"
+           role="tabpanel" aria-labelledby="heading-488cc7ebb57c61cabc600acc788dcfe5">
         
         
           
@@ -486,14 +579,18 @@
     
       
       
-        <a href="/2022/12/28/bachelor/intelligent_sys_exam1/" class="list-group-item list-group-item-action">
+        <a href="/2022/12/28/bachelor/intelligent_sys_exam1/" title="智能系统21-22年真题解析"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">智能系统21-22年真题解析</span>
         </a>
       
     
       
       
-        <a href="/2023/01/02/bachelor/int_sys_nn_tuto/" class="list-group-item list-group-item-action">
+        <a href="/2023/01/02/bachelor/int_sys_nn_tuto/" title="智能系统NN Tutorial 解析"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">智能系统NN Tutorial 解析</span>
         </a>
       
@@ -514,20 +611,25 @@
   
     
     
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="机器学习"
         id="heading-61bb1751fd355596e307767d1927c855" role="tab" data-toggle="collapse" href="#collapse-61bb1751fd355596e307767d1927c855"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         机器学习
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>2</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-61bb1751fd355596e307767d1927c855" role="tabpanel" aria-labelledby="heading-61bb1751fd355596e307767d1927c855">
+      
+        <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-61bb1751fd355596e307767d1927c855"
+           role="tabpanel" aria-labelledby="heading-61bb1751fd355596e307767d1927c855">
         
         
           
@@ -539,23 +641,27 @@
 
           
   
-  
     
     
-    <div class="category-sub row">
-      <a
-        class="category-subitem collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="传统算法"
         id="heading-c26b29c6be4dcc4ca27cb7171a950aa2" role="tab" data-toggle="collapse" href="#collapse-c26b29c6be4dcc4ca27cb7171a950aa2"
         aria-expanded="false"
       >
         传统算法
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BC%A0%E7%BB%9F%E7%AE%97%E6%B3%95/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>2</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-c26b29c6be4dcc4ca27cb7171a950aa2" role="tabpanel" aria-labelledby="heading-c26b29c6be4dcc4ca27cb7171a950aa2">
+      
+        <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BC%A0%E7%BB%9F%E7%AE%97%E6%B3%95/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-c26b29c6be4dcc4ca27cb7171a950aa2"
+           role="tabpanel" aria-labelledby="heading-c26b29c6be4dcc4ca27cb7171a950aa2">
         
         
           
@@ -564,14 +670,18 @@
     
       
       
-        <a href="/2022/01/15/machinel/perceptron/" class="list-group-item list-group-item-action">
+        <a href="/2022/01/15/machinel/perceptron/" title="感知机(Perceptron)"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">感知机(Perceptron)</span>
         </a>
       
     
       
       
-        <a href="/2022/01/21/machinel/naive_bayes/" class="list-group-item list-group-item-action">
+        <a href="/2022/01/21/machinel/naive_bayes/" title="朴素贝叶斯法(Naive Bayes)"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">朴素贝叶斯法(Naive Bayes)</span>
         </a>
       
@@ -588,20 +698,25 @@
   
     
     
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="深度学习"
         id="heading-8c5f70f85d5a691a5f1dc7be5473736b" role="tab" data-toggle="collapse" href="#collapse-8c5f70f85d5a691a5f1dc7be5473736b"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         深度学习
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>2</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-8c5f70f85d5a691a5f1dc7be5473736b" role="tabpanel" aria-labelledby="heading-8c5f70f85d5a691a5f1dc7be5473736b">
+      
+        <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-8c5f70f85d5a691a5f1dc7be5473736b"
+           role="tabpanel" aria-labelledby="heading-8c5f70f85d5a691a5f1dc7be5473736b">
         
         
           
@@ -613,23 +728,27 @@
 
           
   
-  
     
     
-    <div class="category-sub row">
-      <a
-        class="category-subitem collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="现代计算机视觉"
         id="heading-f67b22d1e6eb33e990a150853be72fa6" role="tab" data-toggle="collapse" href="#collapse-f67b22d1e6eb33e990a150853be72fa6"
         aria-expanded="false"
       >
         现代计算机视觉
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>2</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-f67b22d1e6eb33e990a150853be72fa6" role="tabpanel" aria-labelledby="heading-f67b22d1e6eb33e990a150853be72fa6">
+      
+        <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-f67b22d1e6eb33e990a150853be72fa6"
+           role="tabpanel" aria-labelledby="heading-f67b22d1e6eb33e990a150853be72fa6">
         
         
           
@@ -639,7 +758,9 @@
     
       
       
-        <a href="/2023/04/22/convnets/overview_conv/" class="list-group-item list-group-item-action">
+        <a href="/2023/04/22/convnets/overview_conv/" title="卷积与计算机视觉概述"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">卷积与计算机视觉概述</span>
         </a>
       
@@ -648,23 +769,27 @@
 
           
   
-  
     
     
-    <div class="category-sub row">
-      <a
-        class="category-subitem collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="上游与骨干网"
         id="heading-3976b89bb9a9a21b3614f885ac29aa88" role="tab" data-toggle="collapse" href="#collapse-3976b89bb9a9a21b3614f885ac29aa88"
         aria-expanded="false"
       >
         上游与骨干网
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%8A%E6%B8%B8%E4%B8%8E%E9%AA%A8%E5%B9%B2%E7%BD%91/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>1</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-3976b89bb9a9a21b3614f885ac29aa88" role="tabpanel" aria-labelledby="heading-3976b89bb9a9a21b3614f885ac29aa88">
+      
+        <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%8A%E6%B8%B8%E4%B8%8E%E9%AA%A8%E5%B9%B2%E7%BD%91/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-3976b89bb9a9a21b3614f885ac29aa88"
+           role="tabpanel" aria-labelledby="heading-3976b89bb9a9a21b3614f885ac29aa88">
         
         
           
@@ -673,7 +798,9 @@
     
       
       
-        <a href="/2023/04/22/convnets/basic_of_conv/" class="list-group-item list-group-item-action">
+        <a href="/2023/04/22/convnets/basic_of_conv/" title="1 Yann LeCun和手写数字识别"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">1 Yann LeCun和手写数字识别</span>
         </a>
       
@@ -694,20 +821,25 @@
   
     
     
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数学饶了我吧"
         id="heading-15d58b0c0ba4a9279215638feb818631" role="tab" data-toggle="collapse" href="#collapse-15d58b0c0ba4a9279215638feb818631"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         数学饶了我吧
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E6%95%B0%E5%AD%A6%E9%A5%B6%E4%BA%86%E6%88%91%E5%90%A7/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>1</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-15d58b0c0ba4a9279215638feb818631" role="tabpanel" aria-labelledby="heading-15d58b0c0ba4a9279215638feb818631">
+      
+        <a href="/categories/%E6%95%B0%E5%AD%A6%E9%A5%B6%E4%BA%86%E6%88%91%E5%90%A7/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse show" id="collapse-15d58b0c0ba4a9279215638feb818631"
+           role="tabpanel" aria-labelledby="heading-15d58b0c0ba4a9279215638feb818631">
         
         
           
@@ -719,23 +851,27 @@
 
           
   
-  
     
     
-    <div class="category-sub row">
-      <a
-        class="category-subitem collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="复分析"
         id="heading-f0b69261b525732f125ccd41583b22f2" role="tab" data-toggle="collapse" href="#collapse-f0b69261b525732f125ccd41583b22f2"
         aria-expanded="false"
       >
         复分析
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E6%95%B0%E5%AD%A6%E9%A5%B6%E4%BA%86%E6%88%91%E5%90%A7/%E5%A4%8D%E5%88%86%E6%9E%90/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>1</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-f0b69261b525732f125ccd41583b22f2" role="tabpanel" aria-labelledby="heading-f0b69261b525732f125ccd41583b22f2">
+      
+        <a href="/categories/%E6%95%B0%E5%AD%A6%E9%A5%B6%E4%BA%86%E6%88%91%E5%90%A7/%E5%A4%8D%E5%88%86%E6%9E%90/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-f0b69261b525732f125ccd41583b22f2"
+           role="tabpanel" aria-labelledby="heading-f0b69261b525732f125ccd41583b22f2">
         
         
           
@@ -744,7 +880,9 @@
     
       
       
-        <a href="/2023/01/01/math/complex_analyze_1/" class="list-group-item list-group-item-action">
+        <a href="/2023/01/01/math/complex_analyze_1/" title="复数基本运算"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">复数基本运算</span>
         </a>
       
@@ -761,20 +899,25 @@
   
     
     
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电磁场基础"
         id="heading-51d17395394eed6b0c74cb55ac7250b2" role="tab" data-toggle="collapse" href="#collapse-51d17395394eed6b0c74cb55ac7250b2"
         aria-expanded="false"
       >
         电磁场基础
+        <span class="list-group-count"></span>
         <i class="iconfont icon-arrowright"></i>
       </a>
-      <a href="/categories/%E7%94%B5%E7%A3%81%E5%9C%BA%E5%9F%BA%E7%A1%80/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>1</span>
-      </a>
-      <div class="category-collapse collapse" id="collapse-51d17395394eed6b0c74cb55ac7250b2" role="tabpanel" aria-labelledby="heading-51d17395394eed6b0c74cb55ac7250b2">
+      
+        <a href="/categories/%E7%94%B5%E7%A3%81%E5%9C%BA%E5%9F%BA%E7%A1%80/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-51d17395394eed6b0c74cb55ac7250b2"
+           role="tabpanel" aria-labelledby="heading-51d17395394eed6b0c74cb55ac7250b2">
         
         
           
@@ -783,7 +926,9 @@
     
       
       
-        <a href="/2023/07/09/electromag/01basicofileds/" class="list-group-item list-group-item-action">
+        <a href="/2023/07/09/electromag/01basicofileds/" title="01 电，磁与场"
+           class="list-group-item list-group-item-action
+           ">
           <span class="category-post">01 电，磁与场</span>
         </a>
       
@@ -795,6 +940,7 @@
     </div>
   
 </div>
+
 
               </div>
             </div>
@@ -823,56 +969,58 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
     
 
     
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
+  <footer>
+    <div class="footer-inner">
   
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
   
 
   
-</footer>
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
 
+  
+  
+  
+</div>
 
-  <!-- SCRIPTS -->
+  </footer>
+
+  <!-- Scripts -->
   
   <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
@@ -891,10 +1039,22 @@
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
-<!-- Plugins -->
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
 
-  <script  src="/js/local-search.js" ></script>
 
 
 
@@ -904,46 +1064,25 @@
 
 
 
-  
 
-
-
-
+  <script  src="/js/local-search.js" ></script>
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-        typing(title);
-      
-    })(window, document);
-  </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
 <script  src="/js/boot.js" ></script>
 
 
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 <script>(function (w, d, s, id) {
             if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window, document, 'script', 'webpushr-jssdk'));webpushr('setup', { 'key': 'BMbTx1ZJelWq3roP3GYnfCDQdvu4yiHno_QBdQaV8otW_Gag0xTRGJUHBpbfDkyq3LD9yOS_CwXnaIkg7E1ijgo' });</script></body>
 </html>
