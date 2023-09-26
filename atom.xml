@@ -6,7 +6,7 @@
   <link href="https://jesseprince.github.io/atom.xml" rel="self"/>
   
   <link href="https://jesseprince.github.io/"/>
-  <updated>2023-09-26T13:09:53.011Z</updated>
+  <updated>2023-09-26T13:18:50.316Z</updated>
   <id>https://jesseprince.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>介绍</title>
+    <title>0介绍</title>
     <link href="https://jesseprince.github.io/2023/09/26/convnets/frontier/frontierinfo/"/>
     <id>https://jesseprince.github.io/2023/09/26/convnets/frontier/frontierinfo/</id>
     <published>2023-09-26T13:07:35.488Z</published>
-    <updated>2023-09-26T13:09:53.011Z</updated>
+    <updated>2023-09-26T13:18:50.316Z</updated>
     
     <content type="html"><![CDATA[<h1 id="前沿研究"><a class="markdownIt-Anchor" href="#前沿研究"></a> 前沿研究</h1><div class="note note-info">            <p><strong>目前已有文章</strong><br /><strong>Backbone/图像分类</strong></p><ul><li>ConvneXt: A ConvNet for the 2020s</li></ul>          </div><p>这一板块将通过论文精度的方式进行，翻译一段，然后笔记作为一段。</p>]]></content>
     
