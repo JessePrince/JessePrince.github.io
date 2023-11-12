@@ -16,15 +16,15 @@
   <meta name="author" content="林正">
   <meta name="keywords" content="">
   
-    <meta name="description" content="ConvNeXt: A ConvNet for the 2020s  笔者前言 Transformer在NLP任务上取得了非常好的效果，在这之后，为图像任务打造的Vision Transformer再一次刷新了ImageNet数据集上的精度。但在这期间一直有一个争论，那就是Transformer到底是好在Attention这种特殊的计算，还是其因为有超大感受野，从而能够捕捉长期依赖。ConvNe">
+    <meta name="description" content="ConvNeXt: A ConvNet for the 2020s 原Paper发布日期：2022.5.2于’arxiv.org’, 文章号：2201.03545  1 主要思想 通过全面模仿Vision Transformer的设计来提升ConvNets的能力，使用的有效的trick总结在了下面  现代化训练方式：使用AdamW优化器，先进的数据增强方法和正则方法 改变stage之间的比例：模">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ConvNeXt：A ConvNet for the 2020s">
 <meta property="og:url" content="https://jesseprince.github.io/2023/09/26/convnets/frontier/convnextv1/index.html">
 <meta property="og:site_name" content="林正的Blog">
-<meta property="og:description" content="ConvNeXt: A ConvNet for the 2020s  笔者前言 Transformer在NLP任务上取得了非常好的效果，在这之后，为图像任务打造的Vision Transformer再一次刷新了ImageNet数据集上的精度。但在这期间一直有一个争论，那就是Transformer到底是好在Attention这种特殊的计算，还是其因为有超大感受野，从而能够捕捉长期依赖。ConvNe">
+<meta property="og:description" content="ConvNeXt: A ConvNet for the 2020s 原Paper发布日期：2022.5.2于’arxiv.org’, 文章号：2201.03545  1 主要思想 通过全面模仿Vision Transformer的设计来提升ConvNets的能力，使用的有效的trick总结在了下面  现代化训练方式：使用AdamW优化器，先进的数据增强方法和正则方法 改变stage之间的比例：模">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-26T11:53:39.323Z">
-<meta property="article:modified_time" content="2023-09-27T12:44:40.270Z">
+<meta property="article:modified_time" content="2023-11-12T13:21:19.950Z">
 <meta property="article:author" content="林正">
 <meta property="article:tag" content="智能系统">
 <meta property="article:tag" content="深度学习">
@@ -228,7 +228,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          5.4k 字
+          2.3k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
           <!-- compatible with older versions-->
-          45 分钟
+          20 分钟
         
       </span>
     
@@ -292,7 +292,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年9月27日 晚上
+                    本文最后更新于：2023年11月12日 晚上
                   
                 
               </p>
@@ -301,48 +301,98 @@
               <div class="markdown-body">
                 
                 <h1 id="convnext-a-convnet-for-the-2020s"><a class="markdownIt-Anchor" href="#convnext-a-convnet-for-the-2020s"></a> ConvNeXt: A ConvNet for the 2020s</h1>
-<h2 id="笔者前言"><a class="markdownIt-Anchor" href="#笔者前言"></a> 笔者前言</h2>
-<p>Transformer在NLP任务上取得了非常好的效果，在这之后，为图像任务打造的Vision Transformer再一次刷新了ImageNet数据集上的精度。但在这期间一直有一个争论，那就是Transformer到底是好在Attention这种特殊的计算，还是其因为有超大感受野，从而能够捕捉长期依赖。ConvNets(卷积神经网络)就真的不如Transformer吗？这篇文章就尝试改进网络的设计来对齐Transformer的性能，并且最终结果表明，改进的纯卷积网络性能是可以超过Transformer的。这个工作来自于老朋友Facebook AI Research和UC Berkeley大学。</p>
 <p><strong>原Paper发布日期</strong>：2022.5.2于’<a target="_blank" rel="noopener" href="http://arxiv.org">arxiv.org</a>’, 文章号：2201.03545</p>
-<h2 id="摘要abstract"><a class="markdownIt-Anchor" href="#摘要abstract"></a> 摘要Abstract</h2>
-<div class="note note-success">
-            <p>2020年代，视觉识别领域随着Vision Transformer(ViT)的出现而热闹起来，它快速取代了卷积神经网络在图像识别领域“最先进模型”的地位。但另一方面，一个一般的ViT却在更广泛的计算机视觉任务上(比如目标检测和语义分割)面临困难。是分层级的Transformers(比如Swin Transformer)重新引入了一些卷积网络的先前的优点，使得Vision Transformer能够在实际上作为一个通用的Backbone，从而在各种不同的计算机视觉任务上表现出非凡的性能。但是，这种混合方式的有效性很大程度上归功于Transformer的内在优势，而不是卷积神经网络固有的归纳偏置。在这份工作中，我们重新检验卷积网络的改进空间，并测试一个纯卷积神经网络能够达到的极限。我们沿着ViT的设计方法逐渐“现代化”一个标准的ResNet，然后在这个过程中发现了几个能够影响性能的关键因素。我们的发现产出了一系列纯卷积神经网络模型，被我们称作ConvNeXt家族。这些模型是完全由标准的卷积神经网络模块构成的，ConvNeXt能够在准确率和Scalability上很好的与Transformers抗衡，在ImageNet数据集上达到了<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>87.8</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">87.8\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">8</span><span class="mord">7</span><span class="mord">.</span><span class="mord">8</span><span class="mord">%</span></span></span></span>的top-1准确度，并超越了Swin Transformers在COCO检测任务和ADE20K分割任务上的性能，同时还保持了标准卷积神经网络的简单，高效的性质。</p>
-          </div>
-<p>这篇文章的摘要写的非常精彩，建议阅读原文。作者主要就在阐述Vision Transformer在视觉领域带来的性能提升，一下子打败了所有的卷积神经网络，但好奇卷积神经网络能不能通过改进，比如对齐Transformer的设计来获得同样好的性能。原文中提到了融合进Transformer的设计只是卷积网络层级化的部分，所以发挥主要作用的还是Transformer，他们并没有将卷积网络的归纳偏置带进去，所以在卷积网络存在归纳偏置的情况下能不能有相同的性能还不知道。通过改进，他们发现卷积网络还真能超过Transformer，他们把设计出的模型叫做ConvNeXt，意味着是下一代卷积神经网络。</p>
-<h2 id="1-introduction"><a class="markdownIt-Anchor" href="#1-introduction"></a> 1 Introduction</h2>
-<div class="note note-success">
-            <p>当我们回溯到2010年代，会发现这十年是以深度学习的巨大进步和深远影响为标志的，主要驱动力就是那些被新提出的神经网络，特别是一系列的卷积神经网络。在这十年中，视觉识别领域成功从特征工程转变成了设计卷积神经网络的结构。尽管使用反向传播算法训练卷积神经网络可以一路追溯到1980年代，我们直到2012年才看到了卷积网络在视觉特征学习上真正的潜力。AlexNet的出现带来了属于ImageNet的时刻，迎来了计算机视觉的新纪元。这个领域从此开始了快速的演进。代表性的卷积网络例如VGGNet，Inceptions，ResNe(X)t，DenseNet，MobileNet，EfficientNet和RegNet的设计聚焦在在准确度，高效率和Scalability这三个不同的方面，并使得一些很有用的设计准则流行起来。</p>
-          </div>
-<p>这一段实际上就简单回顾了一下渡过AI寒冬的深度学习，随着AlexNet在2012年一鸣惊人，深度学习就开始了快速发展，然后将重要的一些模型名字列举了一下，这些网络改进的方向有准确度，高效率(更少的参数带来更好的性能)，和Scalability。同样的，故事写的很精彩。</p>
-<div class="note note-success">
-            <p>在计算机视觉领域，卷积网络的完全主导地位并不是一个巧合，在很多应用场景下，&quot;滑动窗口&quot;在视觉处理上都是一个固有的策略，尤其是在处理高分辨率图像的时候。卷积网络拥有一些内在的归纳偏置特性，使得它能够很好适应广泛的计算机视觉应用。最重要的就是平移等价(平移不变)性质，这是在例如目标检测任务中我们想要的性质，卷积网络本身还很高效，因为当我们使用滑动窗口的时候，计算的负载是共享的。在几十年来，这一直都是卷积网络的默认使用方法，一般都在有限物体类别的任务上，例如手写数字识别，面部检测和行人检测。进入2010年代，基于区域的检测器的提出，将卷积网络的地位提升到了作为视觉识别系统的基本构成模块。</p>
-          </div>
-<p>这一段提了一下卷积操作的本质和其本身就有的特性，重新说了一下Yann LeCun强调的平移不变性质，卷积网络比起Transformer在计算上就是更高效的。我们以前用卷积网络来直接做任务，例如LeNet用在手写数字识别上。后来区域检测器（例如R-CNN）将卷积网络用成了一个基本构建模块，比如我们常说的Backbone，它把卷积网络作为特征提取器来用，然后让它和其它模块配合来完成更复杂的任务。当然这个使用方法一般是Pretraining + fine-tuning的方式。</p>
-<div class="note note-success">
-            <p>与此同时呢，用于自然语言处理的神经网络有着非常不同的探索过程，因为Transformer取代了循环神经网络成为了支配地位的backbone。尽管语言和视觉领域任务兴趣点差异很大，随着Vision Transformer的出现完全改变了网络结构设计的格局，这两个不同的流派在2020年意外的合并在了一起。除了最初的“Patchify”层，其将一张输入的图片分割成了一系列的图像块，ViT没有引入图像上的归纳偏置，并且相对于原NLP使用的Transformer制作了很少的改变。我们聚焦的ViT的一个主要特点就是它的Scaling行为：如果有更大的模型和更大的数据集，Transformers能够表现的比一个标准的ResNet要显著的好。那些在图像分类上的结果是鼓舞人心的，但计算机视觉又不仅限于图像分类。就像之前讨论过的一样，在过去几十年，对于众多计算机视觉任务的解决方案很大程度上依赖于一个滑动窗口，也就是全卷积的设计范式。没有了卷积网络的归纳偏置，一个一般的ViT模型在成为一个通用的视觉Backbone上面临了诸多挑战。最大的挑战就是ViT的全局注意力机制设计，这使得它的计算复杂度是和输入图像的大小程二次方关系的。这对于ImageNet上的图像分类任务还算是可接受的，但很快发现在更高分辨率输入的任务上变得棘手。</p>
-          </div>
-<p>这段主要在讲用在视觉上得Transformer的设计和问题。Vision Transformer的第一层，也就是Patch Embedding层使用了不重叠卷积来实现图像的分块，这可以算是用到了卷积的归纳偏置，但后面所有的操作都是和NLP上的Transformer对齐的。Transformer这么引人注目就是他的Scalability，也就是说模型更大，数据集更大，我的模型表现得性能就会更好，我获得更好模型的方式只需要不断扩大参数量和数据量就行了。但ViT在下游计算机视觉任务上(除开分类，包括检测，分割等等)又表现得不好，其中一个最大得问题就是输入高分辨率图片得时候，Transformer的计算量会变得非常大。而下游的这些任务一般都是要输入高分辨率图片的。</p>
-<div class="note note-success">
-            <p>层级化的Transformer用了一个混合的方式来弥补这一差距。比如说，“滑动窗口”策略(比如Swin-T里的局部窗口注意力)被重新引入到Transformer，让他们表现得更加像卷积网络。Swin Transformer就是这个方向的里程碑工作，第一次展现了Transformer能够被用作一个通用的视觉Backbone，并在一系列远超过图像分类的计算机视觉任务上取得最顶尖的效果。Swin Transformer的成功和快速的应用也揭露了一件事：卷积的要素并没有变得无关紧要，恰恰相反，它仍然是我们想要的，并且从未褪色。</p>
-          </div>
-<p>这里再次提到了Swin-T将卷积里边一些性质融合进来设计，并且确实能解决一些问题，Swin-T就解决了Transformer作为通用backbone的问题。最后一句话写的很精彩，卷积并没有变得无关紧要，它从未褪色。</p>
-<div class="note note-success">
-            <p>从这个视角下看呢，许多Transformer在计算机视觉上的进步都是在把卷积操作给带回来。这些带回卷积的尝试，却有一个代价：简单实现滑动窗口的自注意力机制可能在计算上是昂贵的，如果用一些先进的方法，比如循环移位，计算的速度能够被优化，但是系统的设计变得更加复杂。在另一方面，一个几乎讽刺的事实是卷积网络早已满足了许多这些我们想要的特性，尽管以一种直接了当，朴实无华的方式满足的。卷积网络看起来在失去动力的唯一原因是(层级的)Transformers在许多视觉任务上超越了它们，性能上的不同通常归功于Transformer的更优越的scaling行为，其中多头自注意力机制是一个关键因素。</p>
-          </div>
-<p>这一段开始直截了当的批评Transformer，我们让ViT进步的方式就是把卷积的特性带回来，那卷积网络不已经有这些特性了吗，我们干嘛还费劲这么做呢？而且越是融合卷积的特性这个网络的设计就越是复杂，不太符合最简单的设计是最有效的这种哲理。最后点明，卷积看起来要输了的原因是因为Transformer的Scalability很强，这才使得它们在很多任务上超越了卷积。</p>
-<div class="note note-success">
-            <p>不像卷积神经网络已经在过去十年被逐步改进，Vsion Transformer的采用则是一步促成的。在最近的文献中，在比较两者时通常在使用系统级比较(比如Swin-T对比ResNet)。卷积网络和Vision Transformer同时变得不同，又变得相同：它们都配备了相似的归纳偏置，但在训练过程，以及宏观/微观上的结构设计上存在显著差异。在本工作中，我们调查卷积网络和Transformer之间的结构区别，并尝试弄清楚在比较网络性能时混淆的变量因素。我们的研究旨在弥合卷积网络在ViT前时代和ViT后时代的差距，并测试一个纯卷积网络可以实现的极限。</p>
-          </div>
-<p>第一句话就在说ViT就是突然从NLP那里拿过来套上的，不像卷积一直被改进了十年。在比较基于Transformer的模型和基于卷积的模型的时候，是在系统层面上比较的，可能存在一些应该控制的变量(比如通道数量，优化器等等)，然后引出本文的工作，就是在ViT推出之前的时代和ViT推出之后的时代弥合卷积网络的性能差距，并且尝试把卷积网络的性能推到极限。</p>
-<div class="note note-success">
-            <p>为了做到这点，我们从一个标准的ResNet开始(比如ResNet50)，并让它在一个升级的训练流程上训练。我们逐渐&quot;现代化&quot;它的结构，使其对齐层级化ViT的结构(比如Swin-T)。我们的探索工作被一个关键问题领导：Transformer中的设计决策会怎样影响卷积网络的性能？我们在这个过程中发现了一些导致性能差异的关键因素。最终结果，我们提出了被称作ConvNeXt的纯卷积网络家族。我们在一系列视觉任务上，例如ImageNet图像分类，COCO数据集目标检测/分割和ADE20K的语义翻个上评估ConvNeXt系列的性能。令人惊喜的是，ConvNeXt，这个由标准卷积模块构成的模型，能够在所有主要的评分指标中，在精准度，Scalability和鲁棒性上很好的与Transformer抗衡。ConvNeXt维持了标准的卷积网络的高效性，并且在训练和测试上全卷积的性质使其在实现上非常简单</p>
-          </div>
-<p>这一段简单介绍了读者接下来要看到的内容，他们从ResNet开始改进，然后将Transformer的设计逐步融合进来，相当于整个改进过程都是一个消融实验，最后发现了影响性能的关键因素。他们改进后的卷积网络叫做ConvNeXt，这个网络在很多指标上都有Transformer的性能，甚至超越了Transformer的性能。由于模型只用了卷积，所以实现起来是很简单的，并且计算相当高效。</p>
-<div class="note note-success">
-            <p>我们希望新的发现和讨论能够挑战一些大家都相信的东西，并且能够鼓励人们重新思考卷积在计算机视觉中的重要性。</p>
-          </div>
-<p>最后一句话直接升华这篇工作的地位，其实总的来说他们就是在把Transformer的设计缝进来调参，但经过整个一个讲述，似乎在打破领域的迷信(比如一些人就认为Transformer厉害，注意力机制天下无敌)，让人们重新重视卷积，就像是在掀起CV领域的革命一般。但不能否认的是Facebook烧了不少电费告诉我们哪些技巧对改进性能有用。</p>
-<h2 id="2-modernizing-a-convnet-a-roadmap现代化一个卷积网络一张路线图"><a class="markdownIt-Anchor" href="#2-modernizing-a-convnet-a-roadmap现代化一个卷积网络一张路线图"></a> 2 Modernizing a ConvNet: a Roadmap：现代化一个卷积网络：一张路线图</h2>
+<h2 id="1-主要思想"><a class="markdownIt-Anchor" href="#1-主要思想"></a> 1 主要思想</h2>
+<p>通过全面模仿Vision Transformer的设计来提升ConvNets的能力，使用的有效的trick总结在了下面</p>
+<ul>
+<li>现代化训练方式：使用AdamW优化器，先进的数据增强方法和正则方法</li>
+<li>改变stage之间的比例：模仿ViT的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>:</mo><mn>1</mn><mo>:</mo><mn>3</mn><mo>:</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1:1:3:1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></li>
+<li>改变stem：模仿patch embedding</li>
+<li>使用depth sperable conv：改DSConv并增加网络宽度</li>
+<li>反转bottleneck</li>
+<li>增大卷积核：增大到<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mo>×</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">7\times 7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span>卷积</li>
+<li>改激活函数：使用受欢迎的GELU</li>
+<li>减少激活</li>
+<li>减少归一化</li>
+<li>BN改LN</li>
+<li>下采样器改为不重叠卷积</li>
+</ul>
+<h2 id="2-方法"><a class="markdownIt-Anchor" href="#2-方法"></a> 2 方法</h2>
+<h3 id="21-现代化训练方式"><a class="markdownIt-Anchor" href="#21-现代化训练方式"></a> 2.1 现代化训练方式</h3>
+<p>在文章增强的training recipe中，他们将优化器改为了AdamW。使用了类似DeiT的训练方法。<br />
+首先是先进的数据增强方法，</p>
+<ul>
+<li>Mixu</li>
+<li>Cutmi</li>
+<li>RandAugmen</li>
+<li>Random Erasig</li>
+</ul>
+<p>然后是新的正则方法</p>
+<ul>
+<li>Stochastic Depth</li>
+<li>Label smoothing</li>
+</ul>
+<h3 id="22-stage-ratio"><a class="markdownIt-Anchor" href="#22-stage-ratio"></a> 2.2 Stage ratio</h3>
+<p>在ResNet50中使用了<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mn>4</mn><mo separator="true">,</mo><mn>6</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[3,4,6,3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span>的stage ratio，这里为了模仿Swin-T，改成了<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>9</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[3,3,9,3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">9</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span><br />
+精准度78.8-&gt;79.4</p>
+<h3 id="23-patchify"><a class="markdownIt-Anchor" href="#23-patchify"></a> 2.3 Patchify</h3>
+<p>类似于Swin-T中的Patch Embedding，这里也直接使用不重叠卷积来对图像进行首次大幅度下采样。具体使用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">4\times 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span>卷积，步长为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span>来进行下采样。<br />
+精准度79.4-&gt;79.5</p>
+<h3 id="24-类resnext设计"><a class="markdownIt-Anchor" href="#24-类resnext设计"></a> 2.4 类ResNeXt设计</h3>
+<p>ResNeXt的设计哲学类似于使用分组卷积，分更多的组，并增加宽度来trade-off计算量和准确度。所以这里直接采用深度可分离卷积，然后扩大宽度，具体是把初始的64个通道改成了96个(模仿Swin-T)。</p>
+<h3 id="25-反转bottleneck"><a class="markdownIt-Anchor" href="#25-反转bottleneck"></a> 2.5 反转Bottleneck</h3>
+<p>将原来的</p>
+<pre><code class=" mermaid">graph TD
+A[conv2d 1x1 384-&gt;96]
+B[conv2d 3x3 96-&gt;96]
+C[conv2d 1x1 96-&gt;384]
+A --&gt; B --&gt; C
+</code></pre>
+<p>改为</p>
+<pre><code class=" mermaid">graph TD
+A[dwconv2d 3x3 96-&gt;96]
+B[conv2d 1x1 96-&gt;384]
+C[conv2d 1x1 384-&gt;96]
+A --&gt; B --&gt; C
+</code></pre>
+<p>注意为了模仿Swin-T的设计，bottleneck的通道数量变换从原来的两倍变成了四倍。注意这里同一般的反转bottleneck不同，这里是将DWConv提前了，实际上也是对齐了Transformer里面先进行MSA运算，然后再用MLP扩大四倍缩小四倍的操作。</p>
+<h3 id="26-增大卷积核"><a class="markdownIt-Anchor" href="#26-增大卷积核"></a> 2.6 增大卷积核</h3>
+<p>分别试了不同的卷积核大小，这里最终确定<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mo>×</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">7\times 7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span>卷积核能带来最好的效果<br />
+准确度：80.6</p>
+<h3 id="27-把relu换成gelu"><a class="markdownIt-Anchor" href="#27-把relu换成gelu"></a> 2.7 把ReLU换成GELU</h3>
+<p>替换成最受欢迎的GELU，准确度没变化</p>
+<h3 id="28-减少激活"><a class="markdownIt-Anchor" href="#28-减少激活"></a> 2.8 减少激活</h3>
+<p>Swin-T里面就只有一次激活，所以这里就只使用一次激活，把激活函数放在了两个<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\times 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>卷积之间。<br />
+准确度80.6-&gt;81.3</p>
+<h3 id="29-减少归一化"><a class="markdownIt-Anchor" href="#29-减少归一化"></a> 2.9 减少归一化</h3>
+<p>Swin-T里面也有更少的归一化层，所以这里删掉两个归一化层，留一个在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mo>×</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">7\times 7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span>之后<br />
+81.3-&gt;81.4</p>
+<h3 id="210-bn换ln"><a class="markdownIt-Anchor" href="#210-bn换ln"></a> 2.10 BN换LN</h3>
+<p>简单更换为LN之后性能也有提升<br />
+81.4-&gt;81.5</p>
+<p>最后得到的ConvNeXt Block是</p>
+<pre><code class=" mermaid">graph TD
+G[Source signal]
+A[dwconv2d 7x7 96-&gt;96]
+D[LayerNorm]
+B[conv2d 1x1 96-&gt;384]
+E[GELU]
+C[conv2d 1x1 384-&gt;96]
+F[Element-wise Add]
+G--&gt;A --&gt; D --&gt; B --&gt; E --&gt; C --&gt; F
+G --&gt; F
+</code></pre>
+<h3 id="211-使用分离的下采样层"><a class="markdownIt-Anchor" href="#211-使用分离的下采样层"></a> 2.11 使用分离的下采样层</h3>
+<p>原本ResNet中是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3\times 3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span>卷积步长为2来下采样，这里改为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2\times 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>卷积步长为2的不重叠卷积来下采样。注意到这个改动原本让训练不收敛了，最后在每个下采样层前，stem层后，以及全局平均池化后增加了LN。<br />
+准确度达到了82%</p>
+<h2 id="3-模型配置"><a class="markdownIt-Anchor" href="#3-模型配置"></a> 3 模型配置</h2>
+<ul>
+<li>Tinty: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mo stretchy="false">[</mo><mn>96</mn><mo separator="true">,</mo><mn>192</mn><mo separator="true">,</mo><mn>384</mn><mo separator="true">,</mo><mn>768</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">C=[96, 192, 384, 768]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">9</span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mord">8</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">7</span><span class="mord">6</span><span class="mord">8</span><span class="mclose">]</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>9</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">B=[3, 3, 9, 3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">9</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span></li>
+<li>Small: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mo stretchy="false">[</mo><mn>96</mn><mo separator="true">,</mo><mn>192</mn><mo separator="true">,</mo><mn>384</mn><mo separator="true">,</mo><mn>768</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">C=[96, 192, 384, 768]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">9</span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mord">8</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">7</span><span class="mord">6</span><span class="mord">8</span><span class="mclose">]</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>27</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">B=[3, 3, 27, 3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">7</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span></li>
+<li>Base: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mo stretchy="false">[</mo><mn>128</mn><mo separator="true">,</mo><mn>256</mn><mo separator="true">,</mo><mn>512</mn><mo separator="true">,</mo><mn>1024</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">C=[128, 256, 512, 1024]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mord">2</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">5</span><span class="mord">1</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">2</span><span class="mord">4</span><span class="mclose">]</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>27</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">B=[3, 3, 27, 3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">7</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span></li>
+<li>Large: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mo stretchy="false">[</mo><mn>192</mn><mo separator="true">,</mo><mn>384</mn><mo separator="true">,</mo><mn>768</mn><mo separator="true">,</mo><mn>1536</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">C=[192, 384, 768, 1536]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mord">9</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mord">8</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">7</span><span class="mord">6</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">3</span><span class="mord">6</span><span class="mclose">]</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>27</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">B=[3, 3, 27, 3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">7</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span></li>
+<li>XLarge: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mo stretchy="false">[</mo><mn>256</mn><mo separator="true">,</mo><mn>512</mn><mo separator="true">,</mo><mn>1024</mn><mo separator="true">,</mo><mn>2048</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">C=[256, 512, 1024, 2048]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">5</span><span class="mord">1</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">2</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">4</span><span class="mord">8</span><span class="mclose">]</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false">[</mo><mn>3</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>27</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">B=[3, 3, 27, 3]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">7</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">]</span></span></span></span></li>
+</ul>
 
                 
               </div>
@@ -525,6 +575,19 @@
   
 
 
+
+
+  <script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 
