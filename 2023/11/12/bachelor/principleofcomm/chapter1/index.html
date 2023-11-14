@@ -23,14 +23,14 @@
 <meta property="og:site_name" content="林正的Blog">
 <meta property="og:description" content="01 Chapter 1  1 基本概念 通信的需求起源于人们想要把一段信息传输到另外一个地方去。如果距离近，例如两人面对面，那只需要开口说话就行了，但一旦距离很远，通信需要各种各样的工程方法。  1.1 信息，消息与信号 例1：Alice想要传递“一起去旅游”的信息给Bob，她可以写短信，可以打电话，可以发起视频聊天，这代表着信息能够被表达成不同的消息。而她无论采取哪种方式，最终都会变成电磁波">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jesseprince.github.io/img/bachelor/principleofcomm/chapter1_1.jpg">
+<meta property="og:image" content="https://jesseprince.github.io/img/bachelor/principleofcomm/chpater1_1.jpg">
 <meta property="article:published_time" content="2023-11-12T12:03:12.819Z">
-<meta property="article:modified_time" content="2023-11-14T12:31:56.831Z">
+<meta property="article:modified_time" content="2023-11-14T12:38:53.475Z">
 <meta property="article:author" content="林正">
 <meta property="article:tag" content="通信原理">
 <meta property="article:tag" content="本科课程">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jesseprince.github.io/img/bachelor/principleofcomm/chapter1_1.jpg">
+<meta name="twitter:image" content="https://jesseprince.github.io/img/bachelor/principleofcomm/chpater1_1.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -491,7 +491,7 @@ F--&gt;C
 <p>两根电线或者两个通讯设备靠的很近的时候，可能一个设备会干扰另一个设备，这叫做<strong>Interference</strong>。能够忽略两个设备相互干扰的最小距离称作<strong>Interference range</strong></p>
 <h3 id="63-波形问题"><a class="markdownIt-Anchor" href="#63-波形问题"></a> 6.3 波形问题</h3>
 <p>假设我们要传输一段二进制码，二进制码在现实生活中可以用矩形波来表示，矩形波振幅为1的时候表示1，振幅为0的时候表示为0。<br />
-<img src="/img/bachelor/principleofcomm/chapter1_1.jpg" srcset="/img/loading.gif" lazyload alt="受到干扰的信号" /><br />
+<img src="/img/bachelor/principleofcomm/chpater1_1.jpg" srcset="/img/loading.gif" lazyload alt="受到干扰的信号" /><br />
 在传输的信号叠加噪声之后，波形可能失真程度很大。如果两个波峰挨得很近，那么极有可能在叠加噪声之后重叠在一起，一旦波峰重叠，我们将失去信号的特征，这是传输错误就发生了。于是，为了防止波峰重叠，我们需要考虑矩形波中波峰的距离。但是，这将直接影响我们传输的速度！如果矩形波能够由持续时间短且密集的波峰组成，那么在一小段时间里我们就能传输很多二进制码！</p>
 <h2 id="7-信道容量"><a class="markdownIt-Anchor" href="#7-信道容量"></a> 7 信道容量</h2>
 <p>既然信号的传输会因为噪声的影响而发生错误，那么给定一个信道，它最大能用多少的速度来传输bit而不出错呢？回顾之前看到的信道资源和影响信道的因素，它肯定和信道带宽和信噪比有关。</p>
