@@ -24,7 +24,7 @@
 <meta property="og:description" content="Poisson过程  1 回顾计数过程 计数过程将记录一段时间[0,t)[0,t)[0,t)内出现的事件的次数，计数过程表示为{N(t),t≥0}\{N(t), t\geq 0\}{N(t),t≥0}，且满足以下性质  N(t)≥0N(t)\geq 0N(t)≥0 N(t)∈Z+N(t)\in Z_+N(t)∈Z+​ ∀s,t&gt;0,s&lt;t\forall s,t&gt;0, s&lt;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-07T06:52:51.865Z">
-<meta property="article:modified_time" content="2023-12-07T07:34:21.965Z">
+<meta property="article:modified_time" content="2023-12-21T05:37:57.933Z">
 <meta property="article:author" content="林正">
 <meta property="article:tag" content="随机过程">
 <meta name="twitter:card" content="summary_large_image">
@@ -226,7 +226,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          913 字
+          923 字
         
       </span>
     
@@ -290,7 +290,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年12月7日 下午
+                    本文最后更新于：2023年12月21日 下午
                   
                 
               </p>
@@ -309,6 +309,7 @@
 </ol>
 <p>如果在任意不重叠的时间间隔内事件发生的次数是独立的，例如在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">]</mo><mo separator="true">,</mo><mo stretchy="false">[</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[a,b],[b,c]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">b</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">[</span><span class="mord mathnormal">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">c</span><span class="mclose">]</span></span></span></span>里，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo>−</mo><mi>N</mi><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">N(c)-N(b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mclose">)</span></span></span></span>与<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo><mo>−</mo><mi>N</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">N(b)-N(a)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span></span>独立，那么计数过程称为<strong>独立增量计数过程</strong>。</p>
 <p>如果计数过程在时间间隔<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>t</mi><mo separator="true">,</mo><mi>t</mi><mo>+</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[t,t+s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mclose">)</span></span></span></span>内出现事件次数只与时间差<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">s</span></span></span></span>有关，而与起点没有关系，那么计数过程称为<strong>平稳增量计数过程</strong>。</p>
+<h2 id="2-poisson过程"><a class="markdownIt-Anchor" href="#2-poisson过程"></a> 2 Poisson过程</h2>
 <p>如果计数过程满足以下条件</p>
 <ol>
 <li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">N(0)=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></li>
@@ -417,9 +418,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/08/master/stochastic_p/moment_g/" title="附件2：距母函数(母函数)">
+                      <a href="/2023/12/08/master/stochastic_p/moment_g/" title="附件2：矩母函数(母函数)">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">附件2：距母函数(母函数)</span>
+                        <span class="hidden-mobile">附件2：矩母函数(母函数)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
