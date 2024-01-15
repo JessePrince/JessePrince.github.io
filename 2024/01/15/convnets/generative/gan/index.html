@@ -24,7 +24,7 @@
 <meta property="og:description" content="Overview of GAN  1 GAN的诞生 GAN的全称为Generative Adversarial Net，意思是对抗生成网络。 在这之前，生成式网络总会遇到很多难以实现的概率计算方法，这些问题在最大似然估计等策略中经常出现。 而GAN采用一种完全不同的方式来学习数据集的分布。 首先，我们定义一个生成器GGG，生成器的输入是一个随机噪声z∼pz(z)z\sim p_z(z)z∼pz​">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-15T09:01:29.804Z">
-<meta property="article:modified_time" content="2024-01-15T10:30:34.010Z">
+<meta property="article:modified_time" content="2024-01-15T11:54:04.191Z">
 <meta property="article:author" content="林正">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="生成网络">
@@ -227,7 +227,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.3k 字
+          1.8k 字
         
       </span>
     
@@ -239,7 +239,7 @@
         
         
           <!-- compatible with older versions-->
-          11 分钟
+          15 分钟
         
       </span>
     
@@ -330,6 +330,26 @@ B --&gt; E
 </ul>
 <p>在这样的训练方式中，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">G</span></span></span></span>要不断提升自己的造假能力来骗过<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span>，而<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span>要不断提升自己的判别能力来判别是否是假图像，形成了一个对抗的范式。</p>
 <p>在完成训练之后，只需要给<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">G</span></span></span></span>输入噪声，就可以让<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">G</span></span></span></span>生成类似于数据集的内容。</p>
+<h2 id="2-conditional-gan"><a class="markdownIt-Anchor" href="#2-conditional-gan"></a> 2 Conditional GAN</h2>
+<p>在最初的2014年的Conditional GAN中，作者的做法很简单，首先将条件用向量表示，例如分类的标签可以用one-hot向量表示。接着将条件向量与输入拼接一起输入网络即可。</p>
+<pre><code class=" mermaid">graph LR
+
+A[Noise]
+B[Data]
+C[Conditioanl Vec]
+D[Generator]
+E[Discriminator]
+F[Valid/Fake]
+
+A --&gt; D
+C --&gt; D
+D --&gt; E
+B --&gt; E
+E --&gt; F
+C --&gt; E
+</code></pre>
+<p>由于每次输入时噪声是随机的，所以我们以某个条件做生成的时候，可以实现类似one to many的映射。在MNIST数据集中，作者用MNIST分类标签做为条件，成功利用同一个条件，例如数字0，生成了不同的手写体数字0的图片。</p>
+<p>此外，作者尝试了使用图片-语言描述的数据集来做图片描述任务。图片描述是用几个字来描述一张图片，由于一张图片可以用不同的语言来描述，所以是一个one to many映射的问题，在这里作者把卷积网络提取的图片特征作为条件，让模型学数据集中语言描述的分布，最终实现了模型能够自动描述一张图的内容。</p>
 
                 
               </div>
