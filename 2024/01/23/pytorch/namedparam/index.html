@@ -1,0 +1,719 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="林正">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="PyTorch参数自动命名规则 当我们使用 12for name, params in model.named_parameters():    print(f&quot;Parameter Name: &amp;#123;name&amp;#125;, Parameter Shape: &amp;#123;params.shape&amp;#125;&quot;) 时可以看到模型的参数以及参数的名字，PyTorch内部实际上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch参数自动命名规则">
+<meta property="og:url" content="https://jesseprince.github.io/2024/01/23/pytorch/namedparam/index.html">
+<meta property="og:site_name" content="林正的Blog">
+<meta property="og:description" content="PyTorch参数自动命名规则 当我们使用 12for name, params in model.named_parameters():    print(f&quot;Parameter Name: &amp;#123;name&amp;#125;, Parameter Shape: &amp;#123;params.shape&amp;#125;&quot;) 时可以看到模型的参数以及参数的名字，PyTorch内部实际上">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-23T03:02:57.746Z">
+<meta property="article:modified_time" content="2024-01-23T03:36:24.154Z">
+<meta property="article:author" content="林正">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="PyTorch">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>PyTorch参数自动命名规则 - 林正的Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jesseprince.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"gtag":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="林正的Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>林正的Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="PyTorch参数自动命名规则"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-23 11:02" pubdate>
+          2024年1月23日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          9 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">PyTorch参数自动命名规则</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2024年1月23日 中午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="pytorch参数自动命名规则"><a class="markdownIt-Anchor" href="#pytorch参数自动命名规则"></a> PyTorch参数自动命名规则</h1>
+<p>当我们使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> name, params <span class="hljs-keyword">in</span> model.named_parameters():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Parameter Name: <span class="hljs-subst">&#123;name&#125;</span>, Parameter Shape: <span class="hljs-subst">&#123;params.shape&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>时可以看到模型的参数以及参数的名字，PyTorch内部实际上有一套命名的规则。</p>
+<p>我们创建一个简单的CNN模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Block</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, channels</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.conv1 = nn.Conv2d(<br>            in_channels=channels,<br>            out_channels=channels,<br>            kernel_size=<span class="hljs-number">7</span>,<br>            groups=channels,<br>            padding=<span class="hljs-number">3</span><br>        )<br>        self.proj1 = nn.Linear(<br>            in_features=channels,<br>            out_features=channels*<span class="hljs-number">4</span><br>        )<br>        self.proj2 = nn.Linear(<br>            in_features=channels*<span class="hljs-number">4</span>,<br>            out_features=channels<br>        )<br>        self.act = nn.GELU()<br>        self.norm = nn.BatchNorm2d(num_features=channels)<br>        <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, x</span>):</span><br>        b, c, h, w = x.shape<br>        out = self.conv1(x)<br>        out = self.norm(out)<br>        out = out.permute(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>) <br>        <span class="hljs-comment"># (N, C, H, W) -&gt; (N, H, W, C)</span><br>        out = self.proj1(out)<br>        out = self.act(out)<br>        out = self.proj2(out)<br>        out = out.permute(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <br>        <span class="hljs-comment"># (N, H, W, C) -&gt; (N, C, H, W)</span><br>        <br>        <span class="hljs-keyword">return</span> out + x<br>    <br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">model</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, width, depth</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.num_stages = <span class="hljs-built_in">len</span>(depth)<br>        self.sampler = nn.ModuleList()<br>        self.stages = nn.ModuleList()<br>        stem = nn.Sequential(<br>            nn.Conv2d(<br>                in_channels=<span class="hljs-number">3</span>,<br>                out_channels=width[<span class="hljs-number">0</span>],<br>                kernel_size=<span class="hljs-number">4</span>,<br>                stride=<span class="hljs-number">4</span><br>            ),<br>            nn.BatchNorm2d(num_features=width[<span class="hljs-number">0</span>])<br>        )<br>        self.sampler.append(stem)<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(self.num_stages-<span class="hljs-number">1</span>):<br>            m = nn.Sequential(<br>                nn.BatchNorm2d(width[i]),<br>                nn.Conv2d(<br>                    in_channels=width[i],<br>                    out_channels=width[i+<span class="hljs-number">1</span>],<br>                    kernel_size=<span class="hljs-number">2</span>,<br>                    stride=<span class="hljs-number">2</span><br>                )<br>            )<br>            self.sampler.append(m)<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(self.num_stages):<br>            m = nn.Sequential()<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(depth[i]):<br>                m.append(Block(channels=width[i]))<br>                <br>            self.stages.append(m)<br>            <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, x</span>):</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(self.num_stages):<br>            x = self.sampler[i](x)<br>            x = self.stages[i](x)<br>            <br>        <span class="hljs-keyword">return</span> x<br></code></pre></td></tr></table></figure>
+<p>我们创建一个两个stage，每个stage两个block的模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">m = model(<br>    width=[<span class="hljs-number">64</span>, <span class="hljs-number">128</span>],<br>    depth=[<span class="hljs-number">2</span>, <span class="hljs-number">2</span>]<br>)<br></code></pre></td></tr></table></figure>
+<p>接下来使用<code>named_parameters</code>来打印参数，得到</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: sampler<span class="hljs-number">.0</span><span class="hljs-number">.0</span>.weight       <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: sampler<span class="hljs-number">.0</span><span class="hljs-number">.0</span>.bias         <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: sampler<span class="hljs-number">.0</span><span class="hljs-number">.1</span>.weight       <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: sampler<span class="hljs-number">.0</span><span class="hljs-number">.1</span>.bias         <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: sampler<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.weight       <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: sampler<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.bias         <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: sampler<span class="hljs-number">.1</span><span class="hljs-number">.1</span>.weight       <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>, <span class="hljs-number">64</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: sampler<span class="hljs-number">.1</span><span class="hljs-number">.1</span>.bias         <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.0</span>.conv1.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>, <span class="hljs-number">1</span>, <span class="hljs-number">7</span>, <span class="hljs-number">7</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.0</span>.conv1.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.0</span>.proj1.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">256</span>, <span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.0</span>.proj1.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">256</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.0</span>.proj2.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>, <span class="hljs-number">256</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.0</span>.proj2.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.0</span>.norm.weight   <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.0</span>.norm.bias     <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.1</span>.conv1.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>, <span class="hljs-number">1</span>, <span class="hljs-number">7</span>, <span class="hljs-number">7</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.1</span>.conv1.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.1</span>.proj1.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">256</span>, <span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.1</span>.proj1.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">256</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.1</span>.proj2.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>, <span class="hljs-number">256</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.1</span>.proj2.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.1</span>.norm.weight   <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.0</span><span class="hljs-number">.1</span>.norm.bias     <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">64</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.conv1.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>, <span class="hljs-number">1</span>, <span class="hljs-number">7</span>, <span class="hljs-number">7</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.conv1.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.proj1.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">512</span>, <span class="hljs-number">128</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.proj1.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">512</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.proj2.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>, <span class="hljs-number">512</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.proj2.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.norm.weight   <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.norm.bias     <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.1</span>.conv1.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>, <span class="hljs-number">1</span>, <span class="hljs-number">7</span>, <span class="hljs-number">7</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.1</span>.conv1.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.1</span>.proj1.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">512</span>, <span class="hljs-number">128</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.1</span>.proj1.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">512</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.1</span>.proj2.weight  <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>, <span class="hljs-number">512</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.1</span>.proj2.bias    <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.1</span>.norm.weight   <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>])<br><span class="hljs-keyword">Parameter</span> <span class="hljs-keyword">Name</span>: stages<span class="hljs-number">.1</span><span class="hljs-number">.1</span>.norm.bias     <span class="hljs-keyword">Parameter</span> <span class="hljs-built_in">Shape</span>: torch.<span class="hljs-built_in">Size</span>([<span class="hljs-number">128</span>])<br></code></pre></td></tr></table></figure>
+<p>可以看到，PyTorch首先会读取model attribute的名字，由于<code>self.sampler</code>是他第一个遇到的模型参数，所以参数列表里先是<code>sampler</code>开头。</p>
+<p>这里使用了循环来构建，将模型用到的模块装进了<code>nn.Sequential</code>和<code>nn.ModuleList</code>里面，由于循环构建模块没有类似<code>self.xxx</code>的直接命名，PyTorch采用了类似数组的方式命名，中间用<code>.</code>隔开。</p>
+<p>我们一共两个stage，在sampler中，每个stage有两个Module，所以可以看到类似<code>0.0</code>, <code>0.1</code>这样的命名方式，其代表着第0个stage的第0个模块，和第0个stage的第1个模块，和<code>stages[0][0]</code>类似，但在PyTorch命名中都使用<code>.</code>隔开。再往后面，是具体到参数的<code>weight</code>和<code>bias</code>，sampler的satge.1的第一个Module是<code>nn.Conv2d()</code>，所以可以看到有一个<code>63x3x4x4</code>大小的<code>weight</code>，和一个<code>64</code>大小的<code>bias</code>。第二个Module是<code>nn.BatchNorm2d()</code>，所以可以看到<code>0.1</code>后面有一个<code>64</code>的<code>weight</code>和<code>bias</code>。</p>
+<p>接下来遇到的参数是<code>self.stages</code>，这里面使用循环不断创建<code>Block</code>，前面的命名和sampler一样是<code>stages.x.x</code>，后面则是读取到了<code>Block</code>里面的参数名字。在<code>Block</code>中，分别有<code>self.conv1</code>, <code>self.proj1</code>, <code>self.proj2</code>, <code>self.norm</code>。激活函数没有参数所以不在里面。同样，具体到每个<code>Module</code>都有一个<code>weight</code>和<code>bias</code>。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/PyTorch/" class="category-chain-item">PyTorch</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/PyTorch/" class="print-no-link">#PyTorch</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>PyTorch参数自动命名规则</div>
+      <div>https://jesseprince.github.io/2024/01/23/pytorch/namedparam/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>林正</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/22/pytorch/metriclogger/" title="MetricLogger：大厂都在用的指标记录器">
+                        <span class="hidden-mobile">MetricLogger：大厂都在用的指标记录器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script>(function (w, d, s, id) {
+            if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window, document, 'script', 'webpushr-jssdk'));webpushr('setup', { 'key': 'BMbTx1ZJelWq3roP3GYnfCDQdvu4yiHno_QBdQaV8otW_Gag0xTRGJUHBpbfDkyq3LD9yOS_CwXnaIkg7E1ijgo' });</script></body>
+</html>
