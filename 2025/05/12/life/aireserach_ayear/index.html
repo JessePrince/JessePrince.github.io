@@ -19,25 +19,26 @@
   <meta name="author" content="林正">
   <meta name="keywords" content="">
   
-    <meta name="description" content="What happens when using LoRA? It starts with the error              RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn            when you have part of the parameter">
+    <meta name="description" content="The Beginning of Everything Today marks exactly one year since I became an amateur AI researcher. I still remember how disheartened I was with my circumstances back then. I was originally supposed to">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Why model.enable_input_require_grads()?">
-<meta property="og:url" content="https://jesseprince.github.io/2025/05/12/llms/troubleshoot/lora_input_grad/index.html">
+<meta property="og:title" content="AI Research--A Year of Ramblings​">
+<meta property="og:url" content="https://jesseprince.github.io/2025/05/12/life/aireserach_ayear/index.html">
 <meta property="og:site_name" content="Lynx Li Blog">
-<meta property="og:description" content="What happens when using LoRA? It starts with the error              RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn            when you have part of the parameter">
+<meta property="og:description" content="The Beginning of Everything Today marks exactly one year since I became an amateur AI researcher. I still remember how disheartened I was with my circumstances back then. I was originally supposed to">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-05-12T09:02:35.724Z">
-<meta property="article:modified_time" content="2025-05-12T09:13:38.621Z">
+<meta property="article:published_time" content="2025-05-12T12:41:21.577Z">
+<meta property="article:modified_time" content="2025-05-12T12:42:36.471Z">
 <meta property="article:author" content="林正">
-<meta property="article:tag" content="AI">
-<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Emotional">
+<meta property="article:tag" content="AI researcher">
+<meta property="article:tag" content="Independent Researcher">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Why model.enable_input_require_grads()? - Lynx Li Blog</title>
+  <title>AI Research--A Year of Ramblings​ - Lynx Li Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -48,8 +49,6 @@
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css" />
 
 
 
@@ -206,7 +205,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Why model.enable_input_require_grads()?"></span>
+            <span id="subtitle" data-typed-text="AI Research--A Year of Ramblings​"></span>
           
         </div>
 
@@ -217,7 +216,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-12 17:02" pubdate>
+        <time datetime="2025-05-12 20:41" pubdate>
           May 12, 2025 pm
         </time>
       </span>
@@ -230,7 +229,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          30 字
+          205 字
         
       </span>
     
@@ -242,7 +241,7 @@
         
         
           <!-- compatible with older versions-->
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -288,7 +287,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Why model.enable_input_require_grads()?</h1>
+            <h1 id="seo-header">AI Research--A Year of Ramblings​</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
@@ -302,19 +301,49 @@
             
               <div class="markdown-body">
                 
-                <h2 id="what-happens-when-using-lora"><a class="markdownIt-Anchor" href="#what-happens-when-using-lora"></a> What happens when using LoRA?</h2>
-<p>It starts with the error</p>
-<div class="note note-danger">
-            <p>RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn</p>
-          </div>
-<p>when you have part of the parameters activated while the others(especially those in the second half of the model) are frozen.</p>
-<p>What PEFT’s method <code>get_peft_model()</code> does is freezing the model’s pre-trained parameters and add a LoRA adapter to it, while usually, we don’t activate the <strong>embedding layer</strong> and <strong>causal language model head</strong>. And that’s basically the core reason.</p>
-<p>The Pytorch’s computational graph doesn’t have the gradient it requires to complete the back propagation.</p>
-<p>See the GitHub issue: <a target="_blank" rel="noopener" href="https://github.com/huggingface/peft/issues/137">https://github.com/huggingface/peft/issues/137</a></p>
-<h2 id="solution"><a class="markdownIt-Anchor" href="#solution"></a> Solution</h2>
-<p>The solution is simple, huggingface already provided a method to enable the input gradient.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">model.enable_input_require_grads()<br></code></pre></td></tr></table></figure>
-<p>call it before training.</p>
+                <h3 id="the-beginning-of-everything"><a class="markdownIt-Anchor" href="#the-beginning-of-everything"></a> The Beginning of Everything</h3>
+<p>Today marks exactly one year since I became an amateur AI researcher. I still remember how disheartened I was with my circumstances back then. I was originally supposed to become an antenna engineer, but due to certain reasons, I was forced to work on things I had no interest in—things completely unrelated to antennas or even my undergraduate studies.</p>
+<p>During that time, I was extremely anxious. Every morning, I’d wake up wondering: <em>What should I do with my future? What if I can’t understand a single word of the research topic I’m assigned? What if this field has no commercial prospects? How will I find a job?</em> But gradually, my anxiety turned into defiance. <em>Am I really going to let myself rot here?</em></p>
+<p>The year I graduated, two things left a deep impression on me:</p>
+<ol>
+<li>​<strong>Segment Anything</strong>—the first model capable of segmenting any object, demonstrating a general understanding of objects.</li>
+<li>​<strong>ChatGPT</strong>—people were using it for all sorts of fun things, like casting “magic spells” in Python, role-playing, or even mimicking a Linux terminal.</li>
+</ol>
+<p>After finishing my postgraduate entrance exams, I started studying deep learning. But due to inertia from my initial learning, I kept focusing on computer vision (CV). Then, a bold idea struck me: <em>What if I just do AI research on my own?</em></p>
+<h3 id="starting-with-a-server-on-my-desk"><a class="markdownIt-Anchor" href="#starting-with-a-server-on-my-desk"></a> Starting with a Server on My Desk</h3>
+<p>The first step in research is having your own computing power. Renting cloud machines long-term was too expensive, so I decided to build my own. I emptied my savings—scholarships, competition prizes—and even had to ask my parents for extra money to assemble a ​<strong>4x RTX 3090 server</strong>.</p>
+<p>At first, I kept it at my university since our research group needed simulation resources. I thought, <em>“The CPU has plenty of cores, so everyone can share it.”</em> But the campus network became the biggest obstacle—constantly changing IPs, unstable speeds, SSH disconnections, and no way to expose it to the public internet. The IT department ignored my requests. Eventually, I had no choice but to move the server back home.</p>
+<p>Chongqing summers are scorching. To prevent overheating, I locked each GPU’s power limit to ​<strong>250W</strong>. That server, sitting on my desk, accompanied me for an entire year.</p>
+<h3 id="choosing-a-research-direction"><a class="markdownIt-Anchor" href="#choosing-a-research-direction"></a> Choosing a Research Direction</h3>
+<p>By mid-March, I was still planning to work on CV. But by chance, someone asked if I wanted to collaborate on ​<strong>large language models (LLMs)​</strong>. I figured that ​<strong>AIGC (AI-generated content)​</strong>​ was the hottest field, with higher commercial potential, so I began a long collaboration with my co-authors.</p>
+<h3 id="the-journey-into-llms"><a class="markdownIt-Anchor" href="#the-journey-into-llms"></a> The Journey into LLMs</h3>
+<p>In May, we decided to submit to ​<strong>ICLR</strong>. I started with ​<strong>Andrej Karpathy’s LLM introductory course</strong>, then branched into multiple areas:</p>
+<ul>
+<li>GPT architecture</li>
+<li>The three stages of training</li>
+<li>Parameter-efficient fine-tuning (PEFT)</li>
+<li>Infrastructure frameworks</li>
+<li>Multimodal models</li>
+</ul>
+<p>Every day was a deep dive into papers and code implementations. My biggest regret was not learning infrastructure (Infra) properly—things like ​<strong>CUDA programming</strong>​ or ​<strong>Triton</strong>. Now, I only understand the principles of parallelism and acceleration kernels but can’t implement them myself.</p>
+<p>The most painful part? ​<strong>Reading code.​</strong>​ Big tech companies (especially Meta) write elegant, educational code, but digesting it all was exhausting. Meanwhile, some academic open-source projects were pure torture.</p>
+<p>During that period, my favorite escape was walking along the beach while listening to music. To this day, ​<strong>Brahms’ Piano Concerto No. 1</strong>​ and ​<strong>Chopin’s Piano Concerto No. 1</strong>​ instantly bring back memories of those study sessions.</p>
+<h3 id="failure-then-more-failure"><a class="markdownIt-Anchor" href="#failure-then-more-failure"></a> Failure, Then More Failure</h3>
+<p>Of course, not everything went smoothly. Our ICLR submission failed—we didn’t even finish the paper. We pivoted and aimed for ​<strong>ICML</strong>, but the submission deadline was during ​<strong>Chinese New Year</strong>. While my whole family gathered, I locked myself in my room, running experiments and writing. I barely spent any time with them.</p>
+<p>After submission, the ​<strong>rebuttal phase</strong>​ brought even more issues. Judging by the final scores, it was probably a lost cause.</p>
+<p>It’s impossible not to feel demoralized. Right now, I’m juggling failed projects, new projects, and even ​<strong>speed-running quantum mechanics</strong>​ just to graduate. The anxiety keeps waking me up at night, leaving me unable to fall back asleep—it’s taking a toll on my health.</p>
+<p>Once, I woke up at ​<strong>4 AM</strong>, gave up on sleep, and decided to take a walk to the beach. That’s when I realized how early the sun rises in Qingdao. As a longtime urban photographer, I’ve always noted sunrise and sunset times. I observed the changing light, only to find my usual path to the shore ​<strong>blocked by construction barriers</strong>.</p>
+<p>I truly envy those who have the ​<strong>ability</strong>—both financially and skill-wise—to pursue their dreams. I’m still far from where I need to be.</p>
+<p>All this rambling just proves one thing: ​<strong>I’m not strong enough yet.​</strong>​ The only way forward is to keep improving. If I were stronger, maybe I’d have fewer worries.</p>
+<h3 id="future-hopes"><a class="markdownIt-Anchor" href="#future-hopes"></a> Future Hopes</h3>
+<p>Right now, I’m too busy, but someday I want to work on an ​<strong>AI companion</strong>—a true digital human.</p>
+<ul>
+<li>​<strong>LLM + humanoid robotics</strong>​</li>
+<li>Capable of human-like movements and facial expressions</li>
+<li>Long-term memory that adapts to user interactions (even embedding memories into model weights)</li>
+<li>Customizable personalities</li>
+</ul>
+<p>Maybe one day, I’ll be working on something like that.</p>
 
                 
               </div>
@@ -333,15 +362,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/LLM/" class="category-chain-item">LLM</a>
+  <a href="/categories/Life-Moments/" class="category-chain-item">Life Moments</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/LLM/Troubleshooting/" class="category-chain-item">Troubleshooting</a>
-  
-  
-
   
 
       </span>
@@ -355,9 +377,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/AI/" class="print-no-link">#AI</a>
+        <a href="/tags/Emotional/" class="print-no-link">#Emotional</a>
       
-        <a href="/tags/Deep-Learning/" class="print-no-link">#Deep Learning</a>
+        <a href="/tags/AI-researcher/" class="print-no-link">#AI researcher</a>
+      
+        <a href="/tags/Independent-Researcher/" class="print-no-link">#Independent Researcher</a>
       
     </div>
   
@@ -369,8 +393,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Why model.enable_input_require_grads()?</div>
-      <div>https://jesseprince.github.io/2025/05/12/llms/troubleshoot/lora_input_grad/</div>
+      <div>AI Research--A Year of Ramblings​</div>
+      <div>https://jesseprince.github.io/2025/05/12/life/aireserach_ayear/</div>
     </div>
     <div class="license-meta">
       
@@ -414,18 +438,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/12/life/aireserach_ayear/" title="AI Research--A Year of Ramblings​">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">AI Research--A Year of Ramblings​</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/08/research/differentiable_reorder/" title="Differentiable Permutation Layer">
-                        <span class="hidden-mobile">Differentiable Permutation Layer</span>
+                      <a href="/2025/05/12/llms/troubleshoot/lora_input_grad/" title="Why model.enable_input_require_grads()?">
+                        <span class="hidden-mobile">Why model.enable_input_require_grads()?</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -482,11 +500,6 @@
 
 
   
-
-
-  
-  
-
 
 
 
