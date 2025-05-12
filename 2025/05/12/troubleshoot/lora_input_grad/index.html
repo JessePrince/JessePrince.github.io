@@ -19,26 +19,25 @@
   <meta name="author" content="林正">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Introduction">
+    <meta name="description" content="What happens when using LoRA? It starts with the error              RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn            when you have part of the parameter">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Differentiable Permutation Layer">
-<meta property="og:url" content="https://jesseprince.github.io/2025/05/08/research/differentiable_reorder/index.html">
+<meta property="og:title" content="Why model.enable_input_require_grads()?">
+<meta property="og:url" content="https://jesseprince.github.io/2025/05/12/troubleshoot/lora_input_grad/index.html">
 <meta property="og:site_name" content="Lynx Li Blog">
-<meta property="og:description" content="Introduction">
+<meta property="og:description" content="What happens when using LoRA? It starts with the error              RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn            when you have part of the parameter">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-05-08T03:45:02.961Z">
-<meta property="article:modified_time" content="2025-05-08T03:48:27.601Z">
+<meta property="article:published_time" content="2025-05-12T09:02:35.724Z">
+<meta property="article:modified_time" content="2025-05-12T09:11:38.208Z">
 <meta property="article:author" content="林正">
-<meta property="article:tag" content="Sequence models">
-<meta property="article:tag" content="Mamba">
-<meta property="article:tag" content="RNN">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Deep Learning">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Differentiable Permutation Layer - Lynx Li Blog</title>
+  <title>Why model.enable_input_require_grads()? - Lynx Li Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -207,7 +206,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Differentiable Permutation Layer"></span>
+            <span id="subtitle" data-typed-text="Why model.enable_input_require_grads()?"></span>
           
         </div>
 
@@ -218,8 +217,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-08 11:45" pubdate>
-          May 8, 2025 am
+        <time datetime="2025-05-12 17:02" pubdate>
+          May 12, 2025 pm
         </time>
       </span>
     
@@ -231,7 +230,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1 字
+          30 字
         
       </span>
     
@@ -289,13 +288,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Differentiable Permutation Layer</h1>
+            <h1 id="seo-header">Why model.enable_input_require_grads()?</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：May 8, 2025 am
+                    本文最后更新于：May 12, 2025 pm
                   
                 
               </p>
@@ -303,7 +302,19 @@
             
               <div class="markdown-body">
                 
-                <h2 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> Introduction</h2>
+                <h2 id="what-happens-when-using-lora"><a class="markdownIt-Anchor" href="#what-happens-when-using-lora"></a> What happens when using LoRA?</h2>
+<p>It starts with the error</p>
+<div class="note note-danger">
+            <p>RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn</p>
+          </div>
+<p>when you have part of the parameters activated while the others(especially those in the second half of the model) are frozen.</p>
+<p>What PEFT’s method <code>get_peft_model()</code> do is freezing the model’s pre-trained parameters and add a LoRA adapter to it, while usually, we don’t activate the <strong>embedding layer</strong> and <strong>causal language model head</strong>. And that’s basically the core reason.</p>
+<p>The Pytorch’s computational graph doesn’t have the gradient it requires to complete the back propagation.</p>
+<p>See the GitHub issue: <a target="_blank" rel="noopener" href="https://github.com/huggingface/peft/issues/137">https://github.com/huggingface/peft/issues/137</a></p>
+<h2 id="solution"><a class="markdownIt-Anchor" href="#solution"></a> Solution</h2>
+<p>The solution is simple, huggingface already provided a method to enable the input gradient.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">model.enable_input_require_grads()<br></code></pre></td></tr></table></figure>
+<p>call it before training.</p>
 
                 
               </div>
@@ -322,8 +333,15 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Research-Blogs/" class="category-chain-item">Research Blogs</a>
+  <a href="/categories/LLM/" class="category-chain-item">LLM</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/LLM/Troubleshooting/" class="category-chain-item">Troubleshooting</a>
+  
+  
+
   
 
       </span>
@@ -337,11 +355,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Sequence-models/" class="print-no-link">#Sequence models</a>
+        <a href="/tags/AI/" class="print-no-link">#AI</a>
       
-        <a href="/tags/Mamba/" class="print-no-link">#Mamba</a>
-      
-        <a href="/tags/RNN/" class="print-no-link">#RNN</a>
+        <a href="/tags/Deep-Learning/" class="print-no-link">#Deep Learning</a>
       
     </div>
   
@@ -353,8 +369,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Differentiable Permutation Layer</div>
-      <div>https://jesseprince.github.io/2025/05/08/research/differentiable_reorder/</div>
+      <div>Why model.enable_input_require_grads()?</div>
+      <div>https://jesseprince.github.io/2025/05/12/troubleshoot/lora_input_grad/</div>
     </div>
     <div class="license-meta">
       
@@ -366,7 +382,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>May 8, 2025</div>
+          <div>May 12, 2025</div>
         </div>
       
       
@@ -398,18 +414,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/05/12/troubleshoot/lora_input_grad/" title="Why model.enable_input_require_grads()?">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Why model.enable_input_require_grads()?</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/08/research/rule_based_rl/" title="Rethinking R1-like Rule-based RL">
-                        <span class="hidden-mobile">Rethinking R1-like Rule-based RL</span>
+                      <a href="/2025/05/08/research/differentiable_reorder/" title="Differentiable Permutation Layer">
+                        <span class="hidden-mobile">Differentiable Permutation Layer</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
