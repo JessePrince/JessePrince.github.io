@@ -228,6 +228,76 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/01/20/ai_infra/parallel/ddp1_overview/" target="_self">
+          单机多卡DDP tutorial
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/20/ai_infra/parallel/ddp1_overview/" target="_self">
+        <div>
+          单机多卡DDP tutorial  1 什么是DDP 当数据足够多的时候，一张显卡装不下很大的batch_size，我们需要将数据分摊到多个显卡上去。 DDP的思路很简单，我们在每个显卡上面都创建一个模型的复制以及相同的Optimizer，数据被Distributed Sampler平分，并送到每张显卡上完成Forward和Backward过程。 但如果只做以上步骤的话，我们得到的是四个不同参数
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-20 21:42" pubdate>
+              2024-01-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI-Infra/" class="category-chain-item">AI Infra</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/AI-Infra/Parallel-Computing/" class="category-chain-item">Parallel Computing</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">#深度学习</a>
+            
+              <a href="/tags/PyTorch/">#PyTorch</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/01/15/visual_gen/gan/" target="_self">
           Overview of GAN
         </a>
@@ -758,76 +828,6 @@
           </div>
         
         
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/12/01/math/complex_analyze_1/" target="_self">
-          复数基本运算
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/01/math/complex_analyze_1/" target="_self">
-        <div>
-          复数基本运算  1 复数的表示 我们可以用坐标的方式来表达复数，例如 z=x+iyz = x+iy z=x+iy 坐标的表达就是(x,y) 显然，(0,1)(0,1)(0,1)是单位虚数，(1,0)(1,0)(1,0)是单位实数  1 复数的运算 设两个复数 {z1=x+iyz2=x′+iy′\begin{cases} z_1 = x+iy\\ z_2 = x&#x27;+iy&#x27; \e
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-01 12:28" pubdate>
-              2023-12-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%95%B0%E5%AD%A6%E9%A5%B6%E4%BA%86%E6%88%91%E5%90%A7/" class="category-chain-item">数学饶了我吧</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%95%B0%E5%AD%A6%E9%A5%B6%E4%BA%86%E6%88%91%E5%90%A7/%E5%A4%8D%E5%88%86%E6%9E%90/" class="category-chain-item">复分析</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/">#复变函数</a>
-            
-              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
-            
-          </div>
         
       </div>
     </article>

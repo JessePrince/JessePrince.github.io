@@ -1,0 +1,863 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="林正">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="This is a lecture note of the course CSE 234 - Data Systems for ML - LE [A00].From UC SanDiegoProf. Zhang HaoWinter, 2025Link: https:&#x2F;&#x2F;podcast.ucsd.edu&#x2F;watch&#x2F;wi25&#x2F;cse234_a00&#x2F;1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01-Introduction">
+<meta property="og:url" content="https://jesseprince.github.io/2025/06/23/ai_infra/mlsys/0_intro/index.html">
+<meta property="og:site_name" content="Lynx Li Blog">
+<meta property="og:description" content="This is a lecture note of the course CSE 234 - Data Systems for ML - LE [A00].From UC SanDiegoProf. Zhang HaoWinter, 2025Link: https:&#x2F;&#x2F;podcast.ucsd.edu&#x2F;watch&#x2F;wi25&#x2F;cse234_a00&#x2F;1">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-06-23T06:23:09.021Z">
+<meta property="article:modified_time" content="2025-06-23T09:08:58.456Z">
+<meta property="article:author" content="林正">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="AI Infra">
+<meta property="article:tag" content="ML Systems">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>01-Introduction - Lynx Li Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"jesseprince.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Lynx Li Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Lynx Li</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="01-Introduction"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-23 14:23" pubdate>
+          June 23, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          339 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          3 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">01-Introduction</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：June 23, 2025 pm
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <div class="note note-info">
+            <p>This is a lecture note of the course <strong>CSE 234 - Data Systems for ML - LE [A00]</strong>.</p><ul><li>From UC SanDiego</li><li>Prof. Zhang Hao</li><li>Winter, 2025</li><li>Link: <a target="_blank" rel="noopener" href="https://podcast.ucsd.edu/watch/wi25/cse234_a00/1">https://podcast.ucsd.edu/watch/wi25/cse234_a00/1</a></li></ul>
+          </div>
+<h2 id="1-ml-models-and-primitives"><a class="markdownIt-Anchor" href="#1-ml-models-and-primitives"></a> 1 ML Models and Primitives</h2>
+<p>For system builders, we care about how to abstract the objects. In today’s ML community, we basically have these types of models to build, they are CNN, RNN, Transformer and MoE.</p>
+<p>But from a computation perspective, we can extract the components of these models.</p>
+<ul>
+<li>CNN: Conv, Matmul, Softmax, ReLU, Batchnorm</li>
+<li>RNNs: Matmul, Sigmoid, tanh</li>
+<li>Transformer: Matmul, Softmax, GeLU, Layernorm</li>
+<li>MoE: Matmul, Softmax</li>
+</ul>
+<p>And we can convert convolutions to matmuls, so matmul solves almost 80% of the problem. We really need to take care of matmul and accelerate it.</p>
+<p>Hence, our primitives include matmul, addition, subtraction, element-wise multiplication, etc. But matmul is the most important thing.</p>
+<h2 id="2-dataflow-graphs"><a class="markdownIt-Anchor" href="#2-dataflow-graphs"></a> 2 Dataflow Graphs</h2>
+<p>How do we represent our computation? We use Dataflow graphs. However, different ML framework has different flavors in representing graphs.</p>
+<p>So what is a Dataflow graph? Here’s an example for <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>×</mo><mi>b</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">a\times b+3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></p>
+<pre><code class=" mermaid">graph LR
+    a --&gt; mul
+    b --&gt; mul
+    mul --&gt; add[add-const]
+    const3([3]) --&gt; add
+</code></pre>
+<p>As you can see, there are few things used to represent the graph</p>
+<ul>
+<li>Node: represents the computation, or operator</li>
+<li>Edge: represents the data dependency, or the data flowing direction</li>
+</ul>
+<p>Note that node also represents the output tensor and sometimes an input constant tensor.</p>
+<h3 id="21-static-graph"><a class="markdownIt-Anchor" href="#21-static-graph"></a> 2.1 Static Graph</h3>
+<p>Way before Pytorch, the dominant framework is TensorFlow, the characteristic of TensorFlow is its static graph, in which you build the entire graph first and then execute it.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">x = tf.placeholder(tf.float32, [<span class="hljs-literal">None</span>, <span class="hljs-number">784</span>])<br>w = tf.Variable(tf.zeros([<span class="hljs-number">784</span>, <span class="hljs-number">10</span>]))<br>y = tf.nn.softmax(tf.matmul(x, w))<br></code></pre></td></tr></table></figure>
+<p>Then you get a graph like this</p>
+<pre><code class=" mermaid">graph LR
+w --&gt; matmul
+x --&gt; matmul
+matmul --&gt; softmax
+softmax --&gt; y
+</code></pre>
+<p>But the real training step happens <strong>after</strong> you defined all computations, or say, the entire graph</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># suppose you defined the update rule, data, and model.</span><br>sess.run(train_step, feed_dict=(x: batch_xs, y_:batch_ys))<br></code></pre></td></tr></table></figure>
+<p>Also, after you defined the graph, you can’t change it. You can’t use <code>if</code> statement (Although we can use some tricks called switch). But sometimes we need to change the graph based on the input.</p>
+<h3 id="31-dynamic-graph"><a class="markdownIt-Anchor" href="#31-dynamic-graph"></a> 3.1 Dynamic Graph</h3>
+<p>Pytorch uses a totally different flavor called dynamic graph, the graph is created on the fly. One major benefit is that you can add <code>print</code> in the middle of development, and you can check the intermediate results. So you can create and run instead of run after creation.</p>
+<p>In TensorFlow, you have to do something like this</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf<br><br><span class="hljs-comment"># Define a tensor</span><br>x = tf.constant([<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">3.0</span>])<br><br><span class="hljs-comment"># Print the tensor during execution</span><br>x_print = tf.Print(x, [x], message=<span class="hljs-string">&quot;Value of x: &quot;</span>)<br><br><span class="hljs-keyword">with</span> tf.Session() <span class="hljs-keyword">as</span> sess:<br>    sess.run(x_print)<br></code></pre></td></tr></table></figure>
+<p>So everything still happens in <code>sess.run()</code>, and you must define everything before it.</p>
+<p>The TensorFlow way is called <strong>symbolic</strong> and the Pytorch way is called <strong>Imperative</strong>.</p>
+<p>We can summarize the pros and cons of both ways.</p>
+<ul>
+<li>Symbolic
+<ul>
+<li>pros
+<ul>
+<li>Easy to optimize for system developers</li>
+<li>Much more efficient, sometime 10x faster than imperative</li>
+</ul>
+</li>
+<li>cons
+<ul>
+<li>The way of programming might be counter-intuitive</li>
+<li>Hard to debug for <strong>user programs</strong>.</li>
+<li>Less flexible: you need to write symbols before actually doing anything.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Imperative
+<ul>
+<li>pros
+<ul>
+<li>More flexible: Write one line, evaluate one line</li>
+<li>Easy to program and easy to debug</li>
+</ul>
+</li>
+<li>cons
+<ul>
+<li>Less efficient</li>
+<li>More difficult to optimize</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>However, people love Pytorch because it’s much more intuitive for programming and developing models, Pytorch wins the market and dominates today’s AI community.</p>
+<h3 id="32-just-in-time-jit-compilation"><a class="markdownIt-Anchor" href="#32-just-in-time-jit-compilation"></a> 3.2 Just-in-Time (JIT) Compilation</h3>
+<p>Ideally, we want to define-and-run during development and define-then-run during deployment. The way to combine them is JIT. In Pytorch, you can use <code>torch.compile()</code> to turn a code snippet into static graph. However, it doesn’t work for real dynamic graphs (the code or the program itself is a dynamic graph), they depend on the input, the JIT makes no acceleration, so JIT requires static graphs program.</p>
+<p>We can compare static and dynamic graphs as follows from system perspective</p>
+<ul>
+<li>Static graph
+<ul>
+<li>Define once, optimized once, execute many times</li>
+<li>Execution: Once defined, all following computation will follow the defined computation.</li>
+</ul>
+</li>
+<li>Dynamic graph
+<ul>
+<li>Difficulty in expressing complex flow-control logic (need special design on control logics for system developers)</li>
+<li>Complexity of the computation graph implementation</li>
+<li>Difficulty in debugging. Dynamic Dataflow Graphs are also difficult to debug, since it depends on the input, you must figure out the input to reproduce the bug.</li>
+</ul>
+</li>
+</ul>
+<p>However, for language application, the input length varies, we really need dynamic programs.</p>
+<p>So how do we handle dynamic graphs? Can we JIT the dynamic graphs?</p>
+<p>First, we can just do define-and-run, we don’t care about the performance, we build the graph line-by-line, and we forget JIT. Another approach is to introduce control flow ops or piecewise compilation and guards.</p>
+<p>Examples of Control flow primitives are switch and merge operator.</p>
+<pre><code class=" mermaid">flowchart LR
+    direction TB
+    DataIn1[&quot;Data (Tensor)&quot;]
+    Pred[&quot;Predicate (Boolean)&quot;]
+    SwitchOp[&quot;Switch&quot;]
+    OutF[&quot;Data (Tensor)&quot;]
+    Dead1[&quot;Dead Tensor&quot;]
+    DataIn1 --&gt; SwitchOp
+    Pred    --&gt; SwitchOp
+    SwitchOp --&gt;|T| OutF
+    SwitchOp --&gt;|F| Dead1
+</code></pre>
+<p>This operator receives two arguments, data and predicate (boolean) and has two outputs: data and dead tensor</p>
+<pre><code class=" mermaid">flowchart LR
+    direction TB
+    In2[&quot;Data (Tensor)&quot;]
+    Dead2[&quot;Dead Tensor&quot;]
+    MergeOp[&quot;Merge&quot;]
+    Out2[&quot;Data (Tensor)&quot;]
+    In2   --&gt; MergeOp
+    Dead2 --&gt; MergeOp
+    MergeOp --&gt; Out2
+</code></pre>
+<p>This operator receives two arguments, data and dead tensor, and has one outputs: data.</p>
+<p>So if we implement a lambda function <code>x&lt;y?(x+z):y**2</code>, we can combine the switch and the merge operator, switch takes the condition, and outputs dead tensor (None) if the condition is not satisfied, and merge can merge the dead tensor with valid tensor.</p>
+<p>But what is the gradient of these primitives? Although we can really derive it, it’s too complicated, we can do it in simpler ways.</p>
+<p>And that is piecewise compilation.</p>
+<p><strong>Case 1</strong>. For input <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> with constant <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">c</span></span></span></span> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> will change). So, in order to make this work, we just compile all possible inputs, all possible <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>.</p>
+<p><strong>Case 2</strong>. A graph which is static, then dynamic, then static. We insert guard between static parts. We compile the static part, then dynamic part is left to run in pure Python, then the result is fed to the static part, and the second static part is also compiled.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI-Infra/" class="category-chain-item">AI Infra</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/AI-Infra/ML-System/" class="category-chain-item">ML System</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Deep-Learning/" class="print-no-link">#Deep Learning</a>
+      
+        <a href="/tags/AI-Infra/" class="print-no-link">#AI Infra</a>
+      
+        <a href="/tags/ML-Systems/" class="print-no-link">#ML Systems</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>01-Introduction</div>
+      <div>https://jesseprince.github.io/2025/06/23/ai_infra/mlsys/0_intro/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>林正</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>June 23, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/09/visual_gen/flow_match/03_flow_match/" title="03-Flow Matching and Conditional Flow Matchings">
+                        <span class="hidden-mobile">03-Flow Matching and Conditional Flow Matchings</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
