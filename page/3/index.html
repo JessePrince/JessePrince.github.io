@@ -228,6 +228,69 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/01/28/ai_infra/optimfact/" target="_self">
+          Optimizer Factory -- 写一个能够按层衰减的优化器工厂
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/28/ai_infra/optimfact/" target="_self">
+        <div>
+          1 Introduction 按层调节学习率是很重要的，但原始的torch.optim.optimizer类不含按层调整的功能，所以我们需要自定义一个流程来实现。为了方便的创建带这个功能的optimizer，最好的做法是使用工厂设计模式来创建optimizer。当我们需要不同的优化器的时候，optimizer factory总能够帮我们“加工”torch的optimizer来增加按层调整功能。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-28 13:26" pubdate>
+              2024-01-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI-Infra/" class="category-chain-item">AI Infra</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">#深度学习</a>
+            
+              <a href="/tags/PyTorch/">#PyTorch</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/01/26/ai_infra/amp/" target="_self">
           详解大型项目中的AMP训练
         </a>
@@ -790,74 +853,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2023-12-08 20:54" pubdate>
               2023-12-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/" class="category-chain-item">信息与通信工程</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E4%BF%A1%E6%81%AF%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%B7%A5%E7%A8%8B/%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/" class="category-chain-item">随机过程</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/">#随机过程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/12/07/master/stochastic_p/poisson/" target="_self">
-          06：Poisson过程
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/07/master/stochastic_p/poisson/" target="_self">
-        <div>
-          Poisson过程  1 回顾计数过程 计数过程将记录一段时间[0,t)[0,t)[0,t)内出现的事件的次数，计数过程表示为{N(t),t≥0}\{N(t), t\geq 0\}{N(t),t≥0}，且满足以下性质  N(t)≥0N(t)\geq 0N(t)≥0 N(t)∈Z+N(t)\in Z_+N(t)∈Z+​ ∀s,t&gt;0,s&lt;t\forall s,t&gt;0, s&lt;
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-07 14:52" pubdate>
-              2023-12-07
             </time>
           </div>
         
